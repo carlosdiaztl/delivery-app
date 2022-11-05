@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+p{
+    font-family: 'roboto';
+}
+h4{
+    font-family: 'roboto';
+}
+.nav{
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    &_section{
+        display: flex;
+    }
+    &_p{
+        font-size: 12px;
+        color: yellow;
+    }
+}
