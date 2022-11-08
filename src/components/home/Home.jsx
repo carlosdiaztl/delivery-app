@@ -1,6 +1,8 @@
 import React from "react";
 import location from "../../assets/location.png";
 import restaurant1 from "../../assets/restaurant1.png";
+import Dashboard from "./dashboard/Dashboard";
+import Dashboardtwo from "./dashboardtwo/Dashboardtwo";
 
 import "./style.scss";
 const Home = () => {
@@ -15,18 +17,61 @@ const Home = () => {
             <p> 882 Well St, New-York ↓ </p>
           </span>{" "}
         </section>
-        <section className="nav_sectiontwo"> cupones</section>
+
+        <section className="nav_sectiontwo">
+          <Dashboard />
+        </section>
       </nav>
       <div className="main">
         <h4>Restaurants and cafes </h4>
-        <section>barras de elecciones </section>
-        <div>
-          <section>
-            <img src={restaurant1} /> cards
-          </section>
+        <section className="main_dashboard">
+        <Dashboardtwo/>
+        </section>
+        <div className="main_content">
+        <div className="main_cards"> 
+        
+          <figure>
+            <img src={restaurant1} /> 
+          </figure>
+          <aside><h4>pardes restaurant</h4>
+          stars img
+          <h5> Work time 09:30-21:00</h5>
+          <p> before you 4 $</p>
+           </aside>
+        </div>
+        <div className="main_cards">
+          <figure>
+            <img src={restaurant1} /> 
+          </figure>
+          <aside><h4>pardes restaurant</h4>
+          stars img
+          <h5> Work time 09:30-21:00</h5>
+          <p> before you 4 $</p>
+           </aside>
+        </div>
+        <div className="main_cards">
+          <figure>
+            <img src={restaurant1} /> 
+          </figure>
+          <aside><h4>pardes restaurant</h4>
+          stars img
+          <h5> Work time 09:30-21:00</h5>
+          <p> before you 4 $</p>
+           </aside>
+        </div>
+        <div className="main_cards">
+          <figure>
+            <img src={restaurant1} /> 
+          </figure>
+          <aside><h4>pardes restaurant</h4>
+          stars img
+          <h5> Work time 09:30-21:00</h5>
+          <p> before you 4 $</p>
+           </aside>
+        </div>
         </div>
       </div>
-      <div className="footer"> </div>
+      <div className="footer"> barra </div>
     </div>
   );
 };

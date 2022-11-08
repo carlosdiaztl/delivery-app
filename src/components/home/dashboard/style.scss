@@ -1,0 +1,68 @@
+
+$fondo-home: #fef0ef;
+$color-precio: #fb174f;
+$color-filter: #fffdfe;
+$datos-pizza: #252525;
+$color-reviews: #f97707;
+$size-body: 16px;
+
+
+.slider-container {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    
+    .slider-costo{
+      background-color: #fb174f;
+      border-radius: 20px;
+      width: 100px;
+      font-size: 16px;
+    }
+  }
+  
+  .slider-container section {
+    display: flex;
+    flex-direction: column;
+    flex:  100%;
+    width: 100%;
+    object-fit: cover;
+    scroll-snap-align: center;
+  }
+  .slider-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    img{
+        width: 500px;
+    }
+  }
+
+
+// .dashboard {
+//     width: 100vw;
+//     height: 100%;
+
+
+@media screen and (max-width:650px) {
+    .dashboard{
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+      
+       
+    }
+    .slider-container {
+        display: flex;
+        width: 100vw;
+         img{
+            width: 250px;
+            height: 100px;
+            object-fit: contain;
+            
+        }
+       
+      }
+}
+
