@@ -1,0 +1,13 @@
+.footer{
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+   width: 83%;
+   height: 30px;
+   position: fixed;
+   bottom: 0px;
+   button{
+    background-color: transparent;
+    border: none;
+   }
+}
