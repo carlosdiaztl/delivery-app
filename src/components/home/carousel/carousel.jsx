@@ -4,11 +4,13 @@ import carousel3 from "../../../assets/carousel3.png";
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import {useNavigate } from "react-router-dom";
 import './style.scss'
+import { useSelector } from "react-redux";
+
+
 const Carousel = () => {
+
   const navigate=useNavigate()
-const hola =()=>{
-  console.log('hi');
-}
+
 
 const initial = 0
 const [index, setIndex] = useState(initial)
@@ -30,7 +32,7 @@ useEffect(() => {
     
   }
   else if (index===3) {
-   navigate('/home')
+   navigate('/signIn')
     
   }
  

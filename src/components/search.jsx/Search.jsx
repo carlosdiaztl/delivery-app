@@ -1,8 +1,11 @@
 import React from 'react'
+import Footer from '../home/footer/Footer'
 
 const Search = () => {
   return (
-    <div>Search</div>
+    <div>Search
+    <Footer/>
+    </div>
   )
 }
 

@@ -1,12 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { userReducer } from "../reducers/userReducer";
-
-const reducer={
-    user: userReducer
+import { restaurantesReducer } from "../reducers/restaurantesReducers";
+import { userReducer } from '../reducers/userReducer';
+const reducer = {
+  userStore: userReducer,
+  restaurantStore:restaurantesReducer
 };
-const store= configureStore({
-    reducer,
-    devTools:process.env.NODE_ENV !== "production"
-
-})
-export default store
+const store = configureStore({
+  reducer,
+  devTool: process.env.NODE_ENV !== "production",
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
+export default store;

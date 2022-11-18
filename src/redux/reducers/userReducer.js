@@ -1,16 +1,25 @@
-import { userTypes } from "../types/userTypes"
+import { userTypes } from "../types/userTypes";
 
-export const userReducer=(state= {}, action )=>{
-switch (action.type) {
-    case userTypes.CREATE_USER:
-        
-       return {
+export const userReducer = (state = {}, action) => {
+  switch (action.type) {
+    case userTypes.USER_SIGNPHONE:
+      return {
+        ...action.payload,
+      };
+    case userTypes.USER_AUTHENTICATION:
+      return {
         ...state,
-        name:action.payload.name,
-        email:action.payload.email,
-        error:action.payload.error
-       };
+        authentication: true,
+      };
+    case userTypes.USER_CREATE:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case userTypes.USER_LOGOUT:
+      return {};
+
     default:
-        return state
-}
-}
+      return state;
+  }
+};

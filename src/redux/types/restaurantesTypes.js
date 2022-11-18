@@ -1,0 +1,4 @@
+export const restaurantesTypes = {
+    RESTAURANTES_GET: 'RESTAURANTES_GET',
+    RESTAURANTES_ADD:'RESTAURANTES_ADD'
+  }
