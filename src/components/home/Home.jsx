@@ -52,6 +52,9 @@ const Home = () => {
     
    
   }, [dispatch])
+  const addRestaurant=()=>{
+    navigate("/addRestaurant")
+  }
   
   
   return (
@@ -66,7 +69,8 @@ const Home = () => {
             <button onClick={LogOutUser}> Log Out</button>
           </span>{" "}
           {}
-          <button className="nav_new"> Add restaurant</button>
+          {userStore.phoneNumber === "+573004102478"?<button className="nav_new" onClick={addRestaurant}> Add restaurant</button>:<></>}
+          
           
         </section>
 

@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { fileUpLoad } from "../services/fileUpLoad";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionAddRestaurantesAsync } from '../redux/actions/restaurantesActions';
+import { useNavigate } from 'react-router-dom';
 
 
 const inputList = [
@@ -93,7 +94,19 @@ const inputList = [
   });
   
 const AddRestaurant = () => {
+  const navigate=useNavigate()
+  const userStore = useSelector((store) => store.userStore);
     const dispatch = useDispatch();
+    useEffect(() => {
+      if (userStore.phoneNumber === "+573004102478") {
+        
+      }
+      else{
+        navigate("/home")
+      }
+      
+    }, [userStore])
+    
 
   const {
     register,
@@ -116,8 +129,14 @@ const AddRestaurant = () => {
     console.log(newRestaurant);
     dispatch(actionAddRestaurantesAsync(newRestaurant));
   };
+  const goHome=()=>{
+    navigate("/home")
+  }
   return (
+   
+    
     <div className="p-5">
+    <button onClick={goHome}>home </button>
       <h1>Agregar nuevo restaurante</h1>
       <Form onSubmit={handleSubmit(onSubmit)}>
         {inputList.map((item, index) => {
