@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 
-import { getAuth } from "firebase/auth";
+import { FacebookAuthProvider, getAuth, GoogleAuthProvider } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { Firestore, getFirestore } from "firebase/firestore";
 // import { getAnalytics } from "firebase/analytics";
@@ -27,9 +27,20 @@ const firebaseConfig = {
   appId: "1:519562316437:web:15d0098ff04fdda32ce99c",
   measurementId: "G-Z557RW81P8"
 };
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCdIPZvptLICIjJajot71XiUnb-ee3Rg0Y",
+//   authDomain: "delyvery-app-d0ca2.firebaseapp.com",
+//   projectId: "delyvery-app-d0ca2",
+//   storageBucket: "delyvery-app-d0ca2.appspot.com",
+//   messagingSenderId: "803688224668",
+//   appId: "1:803688224668:web:c0cd2e390bffcef47b9a59",
+//   measurementId: "G-WE8Q1ZLKCX"
+// };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 export const auth = getAuth(app);
+export const google = new GoogleAuthProvider();
+export const facebook= new FacebookAuthProvider();
 export const dataBase= getFirestore(app)

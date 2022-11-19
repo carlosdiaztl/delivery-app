@@ -33,9 +33,10 @@ const Home = () => {
 
   const userStore = useSelector((store) => store.userStore);
   const {restaurantes}=  useSelector((store) => store.restaurantStore);
+  const {filtroRestaurantes}=  useSelector((store) => store.restaurantStore);
   console.log(userStore);
   console.log(restaurantes);
-  
+  console.log(filtroRestaurantes);
   const dispatch = useDispatch();
   const LogOutUser=()=>{
     // dispatch(actionUserCreateAsync({}))
@@ -68,8 +69,11 @@ const Home = () => {
             <p> 882 Well St, New-York ↓ </p>
             <button onClick={LogOutUser}> Log Out</button>
           </span>{" "}
-          {}
-          {userStore.phoneNumber === "+573004102478"?<button className="nav_new" onClick={addRestaurant}> Add restaurant</button>:<></>}
+          
+          {userStore.phoneNumber === "+573164687130"?<button className="nav_new" onClick={addRestaurant}> Add restaurant</button>:<></>}
+          {userStore.email === "diaz.alzate1310@gmail.com"?<button className="nav_new" onClick={addRestaurant}> Add restaurant</button>:<></>}
+
+
           
           
         </section>
@@ -84,8 +88,33 @@ const Home = () => {
         <Dashboardtwo/>
         </section>
         <div className="main_content">
+        {filtroRestaurantes.length?filtroRestaurantes.map((item,index)=>(
+          <div key={index} className="main_cards" onClick={()=>{navigate(`/restaurante${item.name}`)}}>
+          <figure>
+            <img src={`${item.image}`} /> 
+          </figure>
+          <aside><h4> {item.name} </h4>
+          <img src={fourStars} />
+          <h5> Work time {item.apertureTime}:30-{item.closeTime}:00</h5>
+          <p> before you {item.minPrice} $</p>
+           </aside>
+        </div>
+        )):restaurantes.map((item,index)=>(
+          <div key={index} className="main_cards" onClick={()=>{navigate(`/restaurante${item.name}`)}}>
+          <figure>
+            <img src={`${item.image}`} /> 
+          </figure>
+          <aside><h4> {item.name} </h4>
+          <img src={fourStars} />
+          <h5> Work time {item.apertureTime}:30-{item.closeTime}:00</h5>
+          <p> before you {item.minPrice} $</p>
+           </aside>
+        </div>
+        ))}
+        {}
+
         
-        <div className="main_cards">
+        {/* <div className="main_cards">
           <figure>
             <img src={restaurant1} /> 
           </figure>
@@ -94,7 +123,7 @@ const Home = () => {
           <h5> Work time 09:30-21:00</h5>
           <p> before you 4 $</p>
            </aside>
-        </div>
+        </div> */}
         </div>
       </div>
       <Footer/>

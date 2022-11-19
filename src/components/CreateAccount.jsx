@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actionAuthenticationSync, actionUserCreateAsync } from '../redux/actions/userActions';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../Firebase/firebaseConfig';
+import './style.scss'
 
 const CreateAccount = () => {
   const navigate = useNavigate()
@@ -34,12 +35,14 @@ dispatch(actionAuthenticationSync())
 navigate("/home")
   }
   return (
-    <div>CreateAccount 
+    <div className='createAccount'>
+    <h2>Create Account </h2>
+    
     <form onSubmit={handleSubmit(onSubmit)}> 
     <input type="text" placeholder='name' {...register('name')} /> 
     <input type="email" placeholder='email' {...register('email')} /> 
     <input type="password" placeholder='password' {...register('password')} /> 
-    <button type='submit'> Crear cuenta </button>
+    <button type='submit'> Sign in </button>
     </form>
     <span> {uid} </span>
     </div>

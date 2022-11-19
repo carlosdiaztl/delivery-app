@@ -2,8 +2,13 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../Firebase/firebaseConfig";
+import Swal from 'sweetalert2'
+import { loginProviderAsync } from "../redux/actions/userActions";
+import { useDispatch } from "react-redux";
+import googleLogo from "../assets/gogle_logo.png"
 
 const SignIn = () => {
+  const dispatch=useDispatch()
   const navigate = useNavigate();
   const [phoneNumber, setPhoneNumber] = useState("");
   const validatePhoneNumber = (numberPhone, lengthString) => {
@@ -35,6 +40,11 @@ const SignIn = () => {
       })
       .catch((error) => {
         console.log(error);
+        Swal.fire('Upps ','intenta de nuevo  ','error'
+
+        )
+        navigate("/intro")
+
       });
   };
   const generateReCaptcha = () => {
@@ -56,6 +66,9 @@ const SignIn = () => {
       console.log(error);
     }
   };
+  const handleLoginGoogle = () => {
+    dispatch(loginProviderAsync('google'))
+  }
   return (
     <div>
       SignIn
@@ -73,6 +86,7 @@ const SignIn = () => {
         </label>
         <button type="submit"> Sign in</button>
         <div id="recaptch-container"> </div>
+        <img src={googleLogo} alt="Google" style={{width: 50, marginLeft: 30}} onClick={handleLoginGoogle} />
       </form>
     </div>
   );

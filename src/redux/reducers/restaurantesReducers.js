@@ -3,6 +3,7 @@ import { restaurantesTypes } from "../types/restaurantesTypes";
 
 const initialState = {
   restaurantes: [],
+  filtroRestaurantes:[]
 };
 
 export const restaurantesReducer = (state = initialState, action) => {

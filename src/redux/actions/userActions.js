@@ -1,5 +1,5 @@
-import { updateEmail, updatePassword, updateProfile,signOut } from "firebase/auth";
-import { auth } from "../../Firebase/firebaseConfig";
+import { updateEmail, updatePassword, updateProfile,signOut, signInWithPopup } from "firebase/auth";
+import { auth, google } from "../../Firebase/firebaseConfig";
 
 import { userTypes } from "../types/userTypes";
 
@@ -71,6 +71,55 @@ const actionUserCreatesync = (parcialUser) => {
   };
 };
 
+export const loginProviderAsync = (provider) => {
+  return (dispatch) => {
+    signInWithPopup(auth, google)
+      .then((result) => {
+        const user = result.user;
+        console.log(user)
+        const { displayName, accessToken, photoURL, phoneNumber } = user.auth.currentUser
+        dispatch(actionLoginSync({
+          email: user.email, 
+          name: displayName,
+          accessToken,
+          avatar: photoURL,
+          phoneNumber,
+          error: false
+        }))
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+        dispatch(actionLoginSync({
+          error: true,
+          errorMessage
+        }))
+      })
+  }
+}
+
+export const actionLoginSync = (user) => {
+  return {
+    type: userTypes.USER_LOGIN,
+    payload: { ...user }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const actionUserLogOutAsync=()=>{
   return (dispatch)=>{
     signOut(auth)
@@ -85,3 +134,6 @@ const actionUserLogOutSync=()=>{
     type:userTypes.USER_LOGOUT,
   }
 }
+
+
+

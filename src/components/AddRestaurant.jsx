@@ -98,7 +98,7 @@ const AddRestaurant = () => {
   const userStore = useSelector((store) => store.userStore);
     const dispatch = useDispatch();
     useEffect(() => {
-      if (userStore.phoneNumber === "+573004102478") {
+      if (userStore.phoneNumber === "+573164687130" || userStore.email === "diaz.alzate1310@gmail.com") {
         
       }
       else{

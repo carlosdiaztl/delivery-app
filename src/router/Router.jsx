@@ -1,4 +1,4 @@
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, ProviderId } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +17,7 @@ import AddRestaurant from "../components/AddRestaurant";
 import Search from "../components/search.jsx/Search";
 import Recientes from "../components/recientes/Recientes";
 import Perfil from "../components/perfil/Perfil";
+import Restaurantes from "../components/restaurantes/Restaurantes";
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(undefined);
   const [check, setCheck] = useState(true);
@@ -76,11 +77,13 @@ const Router = () => {
         </Route>
         <Route element={<PrivateRouter isAuthentication={isLoggedIn} />}>
         <Route path="/createaccount/:uid" element={<CreateAccount />} />
+        
           <Route path="/home" element={<Home />} />
           <Route path="/search" element={<Search/>} />
           <Route path="/recientes" element={<Recientes/>} />
           <Route path="/perfil" element={<Perfil/>} />
           <Route path="/addRestaurant" element={<AddRestaurant/>} />
+          <Route path="/restaurante:name" element={<Restaurantes/>} />
         </Route>
       </Routes>
     </BrowserRouter>

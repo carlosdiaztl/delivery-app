@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { actionAuthenticationSync, actionSignPhoneAsync } from "../redux/actions/userActions";
@@ -30,6 +30,10 @@ const CodeVerificaction = () => {
       }
     }
   };
+  useEffect(() => {
+    setTimeout(()=>{navigate("/signIn")},20000)
+  }, [])
+  
   return (
     <div>
       codeverifi
