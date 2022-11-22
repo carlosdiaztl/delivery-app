@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { actionFiltrarRestaurantes } from "../../../redux/actions/restaurantesActions";
 import "./style.scss";
 const category = [
   "All",
@@ -12,11 +13,14 @@ const category = [
   "vegetarian",
 ];
 const Dashboardtwo = () => {
+  const dispatch=useDispatch()
   const { filtroRestaurantes } = useSelector((store) => store.restaurantStore);
   const {restaurantes}=  useSelector((store) => store.restaurantStore);
   const filtrarRstaurantes = (categoria) => {
    const filtrado= restaurantes.filter((item)=>item.category === categoria )
    console.log(filtrado);
+   dispatch(actionFiltrarRestaurantes(filtrado))
+
   };
   return (
     <aside>

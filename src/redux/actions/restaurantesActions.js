@@ -55,3 +55,9 @@ const actionAddRestaurantesync = (restaurant) => {
     payload: restaurant,
   };
 };
+export const actionFiltrarRestaurantes=(filtroRestaurantes)=>{
+  return{
+    type:restaurantesTypes.RESTAURANTES_FILTRO,
+    payload:filtroRestaurantes
+  }
+}

@@ -1,9 +1,8 @@
 import { restaurantesTypes } from "../types/restaurantesTypes";
 
-
 const initialState = {
   restaurantes: [],
-  filtroRestaurantes:[]
+  filtroRestaurantes: [],
 };
 
 export const restaurantesReducer = (state = initialState, action) => {
@@ -12,15 +11,17 @@ export const restaurantesReducer = (state = initialState, action) => {
       return {
         ...state,
         restaurantes: action.payload.restaurantes,
-          };
-      case restaurantesTypes.RESTAURANTES_ADD :
-          return {
-              ...state,
-              restaurantes: [
-                  ...state.restaurantes,
-                  action.payload
-              ]
-          }
+      };
+    case restaurantesTypes.RESTAURANTES_ADD:
+      return {
+        ...state,
+        restaurantes: [...state.restaurantes, action.payload],
+      };
+    case restaurantesTypes.RESTAURANTES_FILTRO:
+      return {
+        restaurantes: [...state.restaurantes],
+        filtroRestaurantes: action.payload,
+      };
     default:
       return state;
   }

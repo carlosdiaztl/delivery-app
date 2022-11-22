@@ -18,6 +18,8 @@ import Search from "../components/search.jsx/Search";
 import Recientes from "../components/recientes/Recientes";
 import Perfil from "../components/perfil/Perfil";
 import Restaurantes from "../components/restaurantes/Restaurantes";
+import AddPlato from "../components/addPlato/AddPlato";
+import Plato from "../components/plato/Plato";
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(undefined);
   const [check, setCheck] = useState(true);
@@ -84,6 +86,9 @@ const Router = () => {
           <Route path="/perfil" element={<Perfil/>} />
           <Route path="/addRestaurant" element={<AddRestaurant/>} />
           <Route path="/restaurante:name" element={<Restaurantes/>} />
+          <Route path="/addPlato" element={<AddPlato/>} />
+          <Route path="/plato:name" element={<Plato/>} />
+
         </Route>
       </Routes>
     </BrowserRouter>
