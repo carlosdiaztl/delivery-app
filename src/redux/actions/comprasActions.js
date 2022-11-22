@@ -6,9 +6,9 @@ export const actionAddCompra=(compra)=>{
         payload:compra
     }
 }
-export const actionDeleteCompra=(index)=>{
+export const actionDeleteCompra=(newList)=>{
     return{
         type:comprasTypes.DELETE_COMPRA,
-        payload:index
+        payload:newList
     }
 }
