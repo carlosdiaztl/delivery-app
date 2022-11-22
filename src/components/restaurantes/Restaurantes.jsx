@@ -1,39 +1,72 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import './style.scss'
-import { actionGetPlatosAsync } from '../../redux/actions/platosActions'
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import "./style.scss";
+import { actionGetPlatosAsync } from "../../redux/actions/platosActions";
+import Footer from "../home/footer/Footer";
+import { actionGetrestaurantesAsync } from "../../redux/actions/restaurantesActions";
 
 const Restaurantes = () => {
-
-  const {platos}=useSelector(state=>state.platosStore)
-  console.log(platos);
-  
-    const {name}=useParams()
-    console.log(name);
-  const [platosR,setPlatosR]=useState("")
-  const platosRestaurante = platos.filter(plato=>plato.property ===  name)
-  console.log(platosRestaurante);
-  
-
-
-  const dispatch=useDispatch()
+ 
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(actionGetPlatosAsync())
+    dispatch(actionGetPlatosAsync());
+    dispatch(actionGetrestaurantesAsync());
     
-    
-  }, [dispatch])
+  }, [dispatch]);
   
-  
+  useEffect(() => {}, [dispatch]);
+  const navigate = useNavigate();
+  const { restaurantes } = useSelector((state) => state.restaurantStore);
+  const { platos } = useSelector((state) => state.platosStore);
+  console.log(platos);
+  const { name, property } = useParams();
+  console.log(property);
+  const platosRestaurante = platos.filter((plato) => plato.property === name);
+  console.log(platosRestaurante);
+  console.log(restaurantes);
+  const restaurante = restaurantes.filter(
+    (restaurant) => restaurant.name === name
+  );
+ const restaurantSelect=restaurante[0]
+  const goProduct = (name) => {
+    navigate(`/plato${name}`);
+  };
   return (
-    <div>Bienvenido a {name}
-    {platosRestaurante.map((plate,index)=>(
-      <section className='platos' key={index} > <h4>{plate.name} </h4>
-      <img src={plate.image} />
-       </section>
-    ))}
-    </div>
-  )
-}
+    <>
+      <h2>Bienvenido a {name} </h2>
+      {restaurantSelect? 
+        <header>
+          <figure>
+            <img src={restaurantSelect.image} />
+          </figure>
+          <aside>
+            <h4> {restaurantSelect.name} </h4>
+            <p> {restaurantSelect.description} </p>
+          </aside>
+        </header>
+       : 
+        <span></span>
+      }
+      <div className="contenedor">
+        {platosRestaurante.map((plate, index) => (
+          <section
+            onClick={() => {
+              goProduct(plate.name);
+            }}
+            className="platos"
+            key={index}
+          >
+            {" "}
+            <img src={plate.image} />
+            <p>{plate.name} </p>
+            <h6>${plate.price} </h6>
+          </section>
+        ))}
+      </div>
+      <Footer />
+    </>
+  );
+};
 
-export default Restaurantes
+export default Restaurantes;

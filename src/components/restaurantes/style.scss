@@ -1,5 +1,37 @@
+header{
+    display: flex;
+        figure{
+            width: 100%;
+          img{
+            border-radius: 20px;
+            width: 100%;
+          }
+        }
+        aside{
+            display: flex;
+            flex-direction: column;
+        }
+}
+.contenedor{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    overflow: auto;
+    padding-left: 5%;
+}
 .platos{
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    width:50% ;
+    
     img{
-        width: 35%;
+        width: 90%;
+        height: 150px;
+        border-radius: 15px;
+        object-fit: cover;
+    }
+    h6{
+        margin-top: -20px;
     }
 }

@@ -2,7 +2,7 @@ import { platosTypes } from "../types/platosTypes"
 
 const initialState = {
     platos:[],
-    platosRestaurant:[],
+    platoRestaurant:[],
     filtroPlatos:[]
 }
 

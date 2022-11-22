@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import location from "../../assets/location.png";
 import restaurant1 from "../../assets/restaurant1.png";
 import Dashboard from "./dashboard/Dashboard";
@@ -26,10 +26,13 @@ const Home = () => {
       }
     });
   }, []);
-
+  const [mostar, setMostrar] = useState(false);
+  console.log(mostar);
   const userStore = useSelector((store) => store.userStore);
   const { restaurantes } = useSelector((store) => store.restaurantStore);
   const { filtroRestaurantes } = useSelector((store) => store.restaurantStore);
+  const comprasStore = useSelector((store) => store.comprasStore);
+  console.log(comprasStore);
   console.log(userStore);
   console.log(restaurantes);
   console.log(filtroRestaurantes);
@@ -51,9 +54,9 @@ const Home = () => {
   const addRestaurant = () => {
     navigate("/addRestaurant");
   };
-  const addDish=()=>{
+  const addDish = () => {
     navigate("/addPlato");
-  }
+  };
 
   return (
     <div className="body">
@@ -153,19 +156,22 @@ const Home = () => {
                 </div>
               ))}
           {}
-
-          {/* <div className="main_cards">
-          <figure>
-            <img src={restaurant1} /> 
-          </figure>
-          <aside><h4>pardes restaurant</h4>
-          <img src={fourStars} />
-          <h5> Work time 09:30-21:00</h5>
-          <p> before you 4 $</p>
-           </aside>
-        </div> */}
         </div>
       </div>
+      {comprasStore.length ? (
+        <button
+          onClick={() => {
+            setMostrar(!mostar);
+          }}
+          className="botonCompras"
+        >
+          <span> 5</span> <span> View card</span>
+          <span>$$</span>{" "}
+        </button>
+      ) : (
+        ""
+      )}
+
       <Footer />
     </div>
   );
