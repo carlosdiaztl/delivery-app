@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import './style.scss'
 
 import screen from "../../../assets/screen.png"
+import { auth } from '../../../Firebase/firebaseConfig'
+import { onAuthStateChanged } from 'firebase/auth'
 const Intro = () => {
     const navigate=useNavigate()
     const goCarousel=()=>{
@@ -13,6 +15,7 @@ const Intro = () => {
     setTimeout(goCarousel,2000)
     
    }, [])
+   
    
   return (
     <div className='div' ><img className='' src={screen} /></div>

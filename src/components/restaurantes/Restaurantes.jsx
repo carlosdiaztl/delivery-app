@@ -5,6 +5,8 @@ import "./style.scss";
 import { actionGetPlatosAsync } from "../../redux/actions/platosActions";
 import Footer from "../home/footer/Footer";
 import { actionGetrestaurantesAsync } from "../../redux/actions/restaurantesActions";
+import { auth } from "../../Firebase/firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Restaurantes = () => {
  
@@ -17,6 +19,15 @@ const Restaurantes = () => {
   
   useEffect(() => {}, [dispatch]);
   const navigate = useNavigate();
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user?.displayName) {
+      } else {
+        navigate(`/createaccount/${user.uid}`);
+        console.log(user);
+      }
+    });
+  }, []);
   const { restaurantes } = useSelector((state) => state.restaurantStore);
   const { platos } = useSelector((state) => state.platosStore);
   console.log(platos);

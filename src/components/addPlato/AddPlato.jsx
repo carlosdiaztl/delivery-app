@@ -77,10 +77,7 @@ const AddPlato = () => {
   const navigate = useNavigate();
   const userStore = useSelector((store) => store.userStore);
   useEffect(() => {
-    if (
-      userStore.phoneNumber === "+573164687130" ||
-      userStore.email === "diaz.alzate1310@gmail.com"
-    ) {
+    if (userStore.admin) {
     } else {
       navigate("/home");
     }
@@ -97,8 +94,8 @@ const AddPlato = () => {
   console.log(restaurantesProperty);
   const {
     register,
-    handleSubmit,
-    formState: { errors },
+    handleSubmit,required,
+    formState: { errors }
   } = useForm({});
   const onSubmit = async (data) => {
     const image = await fileUpLoad(data.image[0]);
@@ -130,7 +127,7 @@ const AddPlato = () => {
               <FloatingLabel key={index} label={item.label} className="mb-3">
                 <Form.Select
                   aria-label="Default select example"
-                  {...register(item.name)}
+                  {...register(item.name,{ required: true })}
                 >
                   <option value="">Open this select menu</option>
                   {category.map((item) => (
@@ -152,7 +149,7 @@ const AddPlato = () => {
               <FloatingLabel key={index} label={item.label} className="mb-3">
                 <Form.Select
                   aria-label="Default select example"
-                  {...register(item.name)}
+                  {...register(item.name,{ required: true } )}
                 >
                   <option value="">Open this select menu</option>
                   {restaurantesProperty.map((item,index) => (
@@ -173,7 +170,7 @@ const AddPlato = () => {
           if (item.type === "textarea") {
             return (
               <FloatingLabel key={index} label={item.label} className="mb-3">
-                <Form.Control as="textarea" {...register(item.name)} />
+                <Form.Control as="textarea" {...register(item.name,{ required: true })} />
                 <p>{errors[item.name]?.message}</p>
               </FloatingLabel>
             );
@@ -184,7 +181,7 @@ const AddPlato = () => {
               <Form.Control
                 type={item.type}
                 size={item.type === "file" ? "sm" : ""}
-                {...register(item.name)}
+                {...register(item.name,{ required: true })}
               />
               <p>{errors[item.name]?.message}</p>
             </FloatingLabel>

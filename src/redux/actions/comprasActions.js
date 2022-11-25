@@ -12,3 +12,14 @@ export const actionDeleteCompra=(newList)=>{
         payload:newList
     }
 }
+export const actionCambioConfirm=(nuevaLista)=>{
+    return{
+       type:comprasTypes.CHANGE_STATUS,
+       payload:nuevaLista
+    }
+}
+export const actionBorrarTodo=()=>{
+    return{
+        type:comprasTypes.ALL_DELETE
+    }
+}

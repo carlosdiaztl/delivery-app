@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { actionGetPlatosAsync } from "../../redux/actions/platosActions";
 const Home = () => {
   const navigate = useNavigate();
+ 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user?.displayName) {
@@ -27,6 +28,10 @@ const Home = () => {
     });
   }, []);
   const [mostar, setMostrar] = useState(false);
+  const irCompras=()=>{
+    navigate('/recientes')
+    setMostrar(!mostar)
+  }
   console.log(mostar);
   const userStore = useSelector((store) => store.userStore);
   const { restaurantes } = useSelector((store) => store.restaurantStore);
@@ -69,21 +74,8 @@ const Home = () => {
             <p> 882 Well St, New-York ↓ </p>
             <button onClick={LogOutUser}> Log Out</button>
           </span>{" "}
-          {userStore.phoneNumber === "+573164687130" ? (
-            <div className="buttonsH">
-              <button className="nav_new" onClick={addRestaurant}>
-                {" "}
-                Add restaurant
-              </button>
-              <button className="nav_new" onClick={addRestaurant}>
-                {" "}
-                Add dish
-              </button>{" "}
-            </div>
-          ) : (
-            <></>
-          )}
-          {userStore.email === "diaz.alzate1310@gmail.com" ? (
+    
+          {userStore.admin?  (
             <div className="buttonsH">
               {" "}
               <button className="nav_new" onClick={addRestaurant}>
@@ -160,13 +152,13 @@ const Home = () => {
       </div>
       {comprasStore.length ? (
         <button
-          onClick={() => {
-            setMostrar(!mostar);
-          }}
+          onClick={irCompras
+            
+          }
           className="botonCompras"
         >
-          <span> 5</span> <span> View card</span>
-          <span>$$</span>{" "}
+           <span> View card</span>
+          {" "}
         </button>
       ) : (
         ""

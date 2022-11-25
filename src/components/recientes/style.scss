@@ -1,0 +1,14 @@
+.recientes{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: auto;
+    section{
+        background-color:rgba(128, 128, 128, 0.234) ;
+        border-radius: 20px;
+    }
+}
+.comprasU{
+    display: flex;
+    flex-direction: column;
+}

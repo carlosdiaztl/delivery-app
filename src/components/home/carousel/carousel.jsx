@@ -5,6 +5,8 @@ import React, { useState, useContext, useEffect, useCallback } from "react";
 import {useNavigate } from "react-router-dom";
 import './style.scss'
 import { useSelector } from "react-redux";
+import { auth } from "../../../Firebase/firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
 
 
 const Carousel = () => {
@@ -19,6 +21,18 @@ const nextImg =()=>{
   console.log(index);
 }
 const [render, setRender] = useState(carousel1)
+// useEffect(() => {
+//   onAuthStateChanged(auth, (user) => {
+//     if (user?.displayName) {
+//       console.log(user);
+//     } else {
+//       navigate(`/createaccount/${user.uid}`);
+//       console.log(user);
+//     }
+//   });
+  
+  
+//  }, [])
 useEffect(() => {
   if (index===0) {
     setRender(carousel1)

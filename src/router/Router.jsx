@@ -7,7 +7,7 @@ import CodeVerificaction from "../components/CodeVerificaction";
 import CreateAccount from "../components/CreateAccount";
 import Home from "../components/home/Home";
 import SignIn from "../components/SignIn";
-import { auth } from "../Firebase/firebaseConfig";
+import { auth,dataBase } from "../Firebase/firebaseConfig";
 import { actionSignPhoneSync } from "../redux/actions/userActions";
 import PrivateRouter from "./PrivateRouter";
 import PublicRouter from "./PublicRouter";
@@ -20,12 +20,35 @@ import Perfil from "../components/perfil/Perfil";
 import Restaurantes from "../components/restaurantes/Restaurantes";
 import AddPlato from "../components/addPlato/AddPlato";
 import Plato from "../components/plato/Plato";
+import { doc,addDoc,updateDoc,collection,getDocs, setDoc,getDoc } from "firebase/firestore";
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(undefined);
   const [check, setCheck] = useState(true);
   const userStore = useSelector((store) => store.userStore);
   const dispatch = useDispatch();
   // user?.uid
+
+  const traerInfo= async(uid,accessToken)=>{
+    const docRef=doc(dataBase,`usuarios/${uid}`)
+    const docu= await getDoc(docRef)
+    const dataFinal= docu.data()
+    console.log(uid);
+   console.log(dataFinal);
+   dispatch(
+    actionSignPhoneSync({
+      name: dataFinal.name,
+      email:dataFinal.email,
+      accessToken,
+      phoneNumber:dataFinal.phoneNumber,
+      avatar: dataFinal.avatar,
+      uid,
+      admin:dataFinal.admin,
+      error: false,
+      address:dataFinal.address
+    })
+  );
+   
+  }
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user?.uid) {
@@ -44,17 +67,10 @@ const Router = () => {
             photoURL,
             uid,
           } = user.auth.currentUser;
-          dispatch(
-            actionSignPhoneSync({
-              name: displayName,
-              email,
-              accessToken,
-              phoneNumber,
-              avatar: photoURL,
-              uid,
-              error: false,
-            })
-          );
+
+        traerInfo(uid,accessToken)
+
+          
         }
       }
     });

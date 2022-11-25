@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { actionAuthenticationSync, actionSignPhoneAsync } from "../redux/actions/userActions";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../Firebase/firebaseConfig";
+import screen from "./../assets/Logo.png"
 const CodeVerificaction = () => {
   const dispatch = useDispatch();
   const navigate=useNavigate()
@@ -31,20 +32,22 @@ const CodeVerificaction = () => {
     }
   };
   useEffect(() => {
-    setTimeout(()=>{navigate("/signIn")},20000)
+    setTimeout(()=>{navigate("/signIn")},30000)
   }, [])
   
   return (
-    <div>
-      codeverifi
+    <div className="verification">
+    <img src={screen} /> 
+      <h2> Verification</h2>
+      
       <form>
         <label>
-          Phone number
+          Login or create an account with your phone number to start ordering 
           <input
             type="number"
             onChange={validateCodigo}
             value={codigo}
-            placeholder="Ingrese numero de telefono"
+            placeholder="Ingrese codigo de verificación"
           />
         </label>
       </form>

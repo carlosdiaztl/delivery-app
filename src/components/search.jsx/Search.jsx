@@ -1,6 +1,8 @@
+import { onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../Firebase/firebaseConfig";
 import { actionGetPlatosAsync } from "../../redux/actions/platosActions";
 import Footer from "../home/footer/Footer";
 import "./style.scss";
@@ -13,6 +15,15 @@ const Search = () => {
   const { platos } = useSelector((store) => store.platosStore);
   console.log(platos);
   const dispatch = useDispatch();
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user?.displayName) {
+      } else {
+        navigate(`/createaccount/${user.uid}`);
+        console.log(user);
+      }
+    });
+  }, []);
   useEffect(() => {
     dispatch(actionGetPlatosAsync());
   }, [dispatch]);

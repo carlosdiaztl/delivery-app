@@ -8,6 +8,9 @@ export const compras = (state = [], action) => {
         return []
         case comprasTypes.DELETE_COMPRA:
       return [...action.payload]
+      case comprasTypes.CHANGE_STATUS :
+      return [...action.payload]
+      
 
 
     default:

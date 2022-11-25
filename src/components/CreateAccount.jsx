@@ -1,51 +1,88 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
-import { actionAuthenticationSync, actionUserCreateAsync } from '../redux/actions/userActions';
+import { actionAuthenticationSync, actionUserCreateAsync, actionUserLogOutAsync } from '../redux/actions/userActions';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../Firebase/firebaseConfig';
+import { auth, dataBase } from '../Firebase/firebaseConfig';
 import './style.scss'
+import { Spinner } from 'react-bootstrap';
+import { doc, setDoc } from 'firebase/firestore';
 
 const CreateAccount = () => {
+  const [check, setCheck] = useState(true);
   const navigate = useNavigate()
   const dispatch=useDispatch()
   const {uid}=useParams()
   const userStore = useSelector((store) => store.userStore);
+  const [usuario, setUsuario] = useState("");
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      console.log(user);
+      setUsuario(user)
+    });
+  }, []);
+  console.log(usuario);
 
   useEffect(() => {
-    if (userStore.name) {
-      navigate("/home")
+    setTimeout(()=>{setCheck(false)},1000)
+  }, [])
+  
+  useEffect(() => {
+    if (!check) {
+      if (userStore.name) {
+        navigate("/home")
+      }
+      else{
+       
+      }
       
     }
-   
+    else{
+
+    }
+    
   }, [userStore])
-  
-
-
   const {
     register,
-    handleSubmit,
-   
+    handleSubmit,required
+    
   } = useForm()
-const onSubmit=(data)=>{
-console.log(data);
-dispatch(actionUserCreateAsync(data))
-dispatch(actionAuthenticationSync())
-navigate("/home")
+  const onSubmit= async(data)=>{
+    const docRef=doc(dataBase,`usuarios/${auth.currentUser.uid}`)
+    dispatch(actionUserCreateAsync(data))
+    setDoc(docRef,{email:data.email,name:data.name,photoURL:usuario.photoURL,phoneNumber:usuario.phoneNumber,rol:"usuario"})
+    dispatch(actionAuthenticationSync())
+    navigate('/home')
+  }
+  const LogOutUser = () => {
+    
+    dispatch(actionUserLogOutAsync());
+  };
+  if (check) {
+    return (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
   }
   return (
-    <div className='createAccount'>
-    <h2>Create Account </h2>
+    <>
+
+    {check?<></>:<div className='createAccount'>
+    <h2>Create account </h2>
     
-    <form onSubmit={handleSubmit(onSubmit)}> 
-    <input type="text" placeholder='name' {...register('name')} /> 
-    <input type="email" placeholder='email' {...register('email')} /> 
-    <input type="password" placeholder='password' {...register('password')} /> 
+     <form onSubmit={handleSubmit(onSubmit)}> 
+    <input type="text" placeholder='name' {...register('name',{ required })} /> 
+    <input type="email" placeholder='email' {...register('email',{ required })} /> 
+    <input type="password" placeholder='password' {...register('password',{ required })} /> 
     <button type='submit'> Sign in </button>
-    </form>
+    </form> 
     <span> {uid} </span>
-    </div>
+    <button onClick={LogOutUser}> Log Out</button>
+    </div>}
+    
+    </>
   )
 }
 

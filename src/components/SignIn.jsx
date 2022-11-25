@@ -1,4 +1,4 @@
-import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { RecaptchaVerifier, signInWithPhoneNumber,createUserWithEmailAndPassword} from "firebase/auth";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../Firebase/firebaseConfig";
@@ -6,6 +6,8 @@ import Swal from 'sweetalert2'
 import { loginProviderAsync } from "../redux/actions/userActions";
 import { useDispatch } from "react-redux";
 import googleLogo from "../assets/gogle_logo.png"
+import screen from "./../assets/Logo.png"
+
 
 const SignIn = () => {
   const dispatch=useDispatch()
@@ -66,12 +68,15 @@ const SignIn = () => {
       console.log(error);
     }
   };
-  const handleLoginGoogle = () => {
+  const handleLoginGoogle = async() => {
     dispatch(loginProviderAsync('google'))
+
+    
   }
   return (
-    <div>
-      SignIn
+    <div className="signin">
+    <img src={screen} />
+     <h2>SignIn </h2> 
       <form onSubmit={handleSubmit}>
         <label>
           Phone number
@@ -81,12 +86,12 @@ const SignIn = () => {
               setPhoneNumber(e.target.value);
             }}
             value={phoneNumber}
-            placeholder="Ingrese numero de telefono"
+            placeholder=" + 57 Ingrese numero de telefono"
           />
         </label>
-        <button type="submit"> Sign in</button>
         <div id="recaptch-container"> </div>
         <img src={googleLogo} alt="Google" style={{width: 50, marginLeft: 30}} onClick={handleLoginGoogle} />
+        <button type="submit"> Sign in</button>
       </form>
     </div>
   );
