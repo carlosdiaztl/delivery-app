@@ -6,4 +6,4 @@ link : https://crud-completo-a347c.web.app/
 
 
 
-<a href="https://www.linkedin.com/in/carlos-díaz-alzate-937748233" target="blank"><img align="center" src="https://res.cloudinary.com/dzjytwhrg/image/upload/v1669650736/finalSprint_1_apobbj.png" alt="www.linkedin.com/in/carlos-díaz-alzate-937748233" height="200" width="200" /></a>
+<a  target="blank"><img align="center" src="https://res.cloudinary.com/dzjytwhrg/image/upload/v1669650736/finalSprint_1_apobbj.png" alt="www.linkedin.com/in/carlos-díaz-alzate-937748233" height="200" width="200" /></a>
