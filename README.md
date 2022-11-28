@@ -3,4 +3,7 @@ se maneja un perfil, un usuario admin con las funciones de agregar restaurantes 
 y un usuario el cual puede modificar su perfil y comprar a disposición 
 
 link : https://crud-completo-a347c.web.app/
-https://res.cloudinary.com/dzjytwhrg/image/upload/v1669650736/finalSprint_1_apobbj.png
+
+
+
+<a href="https://www.linkedin.com/in/carlos-díaz-alzate-937748233" target="blank"><img align="center" src="https://res.cloudinary.com/dzjytwhrg/image/upload/v1669650736/finalSprint_1_apobbj.png" alt="www.linkedin.com/in/carlos-díaz-alzate-937748233" height="30" width="40" /></a>
