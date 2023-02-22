@@ -133,6 +133,8 @@ const searchInfo=async(uid,displayName,email,photoURL,phoneNumber)=>{
         }
 
 }
+
+
 export const actionLoginSync = (user) => {
   return {
     type: userTypes.USER_LOGIN,

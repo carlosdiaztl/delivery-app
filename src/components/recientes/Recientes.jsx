@@ -111,9 +111,9 @@ const[lista,setLista]=useState([])
             <div>
               {" "}
               <h4> {item.restaurante} </h4>
-              {/* <span>{item.platoName} </span>
+              <span>{item.platoName} </span>
           <span>{item.price}x </span>
-          <span>{item.quantity} </span> */}
+          <span>{item.quantity} </span>
               <button
                 onClick={() => {
                   deleteItem(index);
