@@ -1,4 +1,4 @@
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from 'firebase/auth';
 import {
   collection,
   doc,
@@ -6,18 +6,18 @@ import {
   getDocs,
   setDoc,
   updateDoc,
-} from "firebase/firestore";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { auth, dataBase } from "../../Firebase/firebaseConfig";
-import { actionLoginSync } from "../../redux/actions/userActions";
-import Footer from "../home/footer/Footer";
-import "./style.scss";
-import { useForm } from "react-hook-form";
-import { FloatingLabel, Form } from "react-bootstrap";
-import { fileUpLoad } from "../../services/fileUpLoad";
-import Swal from "sweetalert2";
+} from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { auth, dataBase } from '../../Firebase/firebaseConfig';
+import { actionLoginSync } from '../../redux/actions/userActions';
+import Footer from '../home/footer/Footer';
+import './style.scss';
+import { useForm } from 'react-hook-form';
+import { FloatingLabel, Form } from 'react-bootstrap';
+import { fileUpLoad } from '../../services/fileUpLoad';
+import Swal from 'sweetalert2';
 
 const Perfil = () => {
   const navigate = useNavigate();
@@ -29,8 +29,8 @@ const Perfil = () => {
   console.log(userStore);
   const [isEdit, setIsEdit] = useState(false);
   const defaulValues = {
-    name: userStore ? userStore.name : "",
-    adress: userStore ? userStore.address : "",
+    name: userStore ? userStore.name : '',
+    adress: userStore ? userStore.address : '',
     // description: userStore ? userStore.description : "",
     // price: userStore ? userStore.price : "",
     // quantity: userStore ? userStore.quantity : "",
@@ -39,6 +39,7 @@ const Perfil = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user?.displayName) {
+        console.log(user);
       } else {
         navigate(`/createaccount/${user.uid}`);
         console.log(user);
@@ -46,13 +47,12 @@ const Perfil = () => {
     });
   }, []);
   console.log(userStore.avatar);
-  const collectionName = "usuarios";
-  const [usuarios,setUsuarios]=useState([])
+  const collectionName = 'usuarios';
+  const [usuarios, setUsuarios] = useState([]);
   const sendInfoUser = async () => {
     const users = [];
     const userCollection = collection(dataBase, collectionName);
     const querySnapshot = await getDocs(userCollection);
-
 
     querySnapshot.forEach((doc) => {
       users.push({
@@ -61,7 +61,7 @@ const Perfil = () => {
       });
     });
     console.log(users);
-    setUsuarios(users)
+    setUsuarios(users);
     setIsEdit(!isEdit);
     console.log(isEdit);
   };
@@ -81,7 +81,7 @@ const Perfil = () => {
   const onSubmit = async (data) => {
     console.log(data);
     const docRef = doc(dataBase, `usuarios/${userStore.uid}`);
-    if (data.name === "" && data.image.length) {
+    if (data.name === '' && data.image.length) {
       const URLimg = await fileUpLoad(data.image[0]);
       console.log(URLimg);
       alert(`${defaulValues.name}`);
@@ -100,8 +100,8 @@ const Perfil = () => {
       );
       setIsEdit(false);
     }
-    if (data.name !== "" && data.image.length) {
-     Swal.fire('Informacion actualizada','','success')
+    if (data.name !== '' && data.image.length) {
+      Swal.fire('Informacion actualizada', '', 'success');
       const URLimg = await fileUpLoad(data.image[0]);
       console.log(URLimg);
       console.log(data.adress);
@@ -128,35 +128,31 @@ const Perfil = () => {
       {userStore && userStore.admin ? (
         <div>
           <span>
-            viendo los datos{" "}
-            <button onClick={sendInfoUser}>Ver usuarios </button>{" "}
+            viendo los datos{' '}
+            <button onClick={sendInfoUser}>Ver usuarios </button>{' '}
           </span>
-          {isEdit && usuarios.length ? usuarios.map((person,index)=>(
-            <section className="perfiles" key={index}>
-            <span> 
-            {person.name?person.name:""}
-            </span>
-            <br/>
-            <span> 
-            {person.email?person.email:""}
-            </span>
-            <br/>
-            <span> 
-            {person.address?person.address:""}
-            </span>
-              </section>
-          )):""}
+          {isEdit && usuarios.length
+            ? usuarios.map((person, index) => (
+                <section className="perfiles" key={index}>
+                  <span>{person.name ? person.name : ''}</span>
+                  <br />
+                  <span>{person.email ? person.email : ''}</span>
+                  <br />
+                  <span>{person.address ? person.address : ''}</span>
+                </section>
+              ))
+            : ''}
         </div>
       ) : (
         <>
-          {" "}
-          <img src={userStore.avatar ? userStore.avatar : ""} />
+          {' '}
+          <img src={userStore.avatar ? userStore.avatar : ''} />
           <span>
-            {userStore.name ? userStore.name : ""}
+            {userStore.name ? userStore.name : ''}
             {/* <button onClick={sendInfoUser}> Edit name</button>{" "} */}
           </span>
           <span>
-            Direccion: {userStore.address ? userStore.address : "No definida"}{" "}
+            Direccion: {userStore.address ? userStore.address : 'No definida'}{' '}
           </span>
           <button onClick={showForm}> Editar perfil</button>
           {isEdit ? (
@@ -165,14 +161,14 @@ const Perfil = () => {
               <input
                 defaultValue={defaulValues.name}
                 placeholder="Name"
-                {...register("name")}
+                {...register('name')}
               />
 
               {/* include validation with required or other standard HTML validation rules */}
               <input
                 defaultValue={defaulValues.address}
                 placeholder="Direccion"
-                {...register("address", { required: true })}
+                {...register('address', { required: true })}
               />
               {/* errors will return when field validation fails  */}
               {errors.exampleRequired && <span>This field is required</span>}
@@ -181,7 +177,7 @@ const Perfil = () => {
                   type="file"
                   size="sm"
                   defaultValue={defaulValues.image}
-                  {...register("image", { required: true })}
+                  {...register('image', { required: true })}
                 />
                 {/* <p>{errors[item.name]?.message}</p> */}
               </FloatingLabel>
@@ -189,7 +185,7 @@ const Perfil = () => {
               <input type="submit" />
             </form>
           ) : (
-            ""
+            ''
           )}
         </>
       )}

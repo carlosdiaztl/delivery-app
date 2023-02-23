@@ -1,34 +1,26 @@
-import { onAuthStateChanged, ProviderId } from "firebase/auth";
-import React, { useEffect, useState } from "react";
-import Spinner from "react-bootstrap/Spinner";
-import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import CodeVerificaction from "../components/CodeVerificaction";
-import CreateAccount from "../components/CreateAccount";
-import Home from "../components/home/Home";
-import SignIn from "../components/SignIn";
-import { auth, dataBase } from "../Firebase/firebaseConfig";
-import { actionSignPhoneSync } from "../redux/actions/userActions";
-import PrivateRouter from "./PrivateRouter";
-import PublicRouter from "./PublicRouter";
-import Intro from "../components/home/intro/Intro";
-import Carousel from "../components/home/carousel/carousel";
-import AddRestaurant from "../components/AddRestaurant";
-import Search from "../components/search.jsx/Search";
-import Recientes from "../components/recientes/Recientes";
-import Perfil from "../components/perfil/Perfil";
-import Restaurantes from "../components/restaurantes/Restaurantes";
-import AddPlato from "../components/addPlato/AddPlato";
-import Plato from "../components/plato/Plato";
-import {
-  doc,
-  addDoc,
-  updateDoc,
-  collection,
-  getDocs,
-  setDoc,
-  getDoc,
-} from "firebase/firestore";
+import { onAuthStateChanged } from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
+import Spinner from 'react-bootstrap/Spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import CodeVerificaction from '../components/CodeVerificaction';
+import CreateAccount from '../components/CreateAccount';
+import Home from '../components/home/Home';
+import SignIn from '../components/SignIn';
+import { auth, dataBase } from '../Firebase/firebaseConfig';
+import { actionSignPhoneSync } from '../redux/actions/userActions';
+import PrivateRouter from './PrivateRouter';
+import PublicRouter from './PublicRouter';
+import Intro from '../components/home/intro/Intro';
+import Carousel from '../components/home/carousel/carousel';
+import AddRestaurant from '../components/AddRestaurant';
+import Search from '../components/search.jsx/Search';
+import Recientes from '../components/recientes/Recientes';
+import Perfil from '../components/perfil/Perfil';
+import Restaurantes from '../components/restaurantes/Restaurantes';
+import AddPlato from '../components/addPlato/AddPlato';
+import Plato from '../components/plato/Plato';
+import { doc, getDoc } from 'firebase/firestore';
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(undefined);
   const [check, setCheck] = useState(true);
@@ -76,6 +68,7 @@ const Router = () => {
           } = user.auth.currentUser;
 
           traerInfo(uid, accessToken);
+          console.log(displayName, email, phoneNumber, photoURL);
         }
       }
     });

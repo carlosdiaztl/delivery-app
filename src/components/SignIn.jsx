@@ -1,24 +1,23 @@
-import { RecaptchaVerifier, signInWithPhoneNumber,createUserWithEmailAndPassword} from "firebase/auth";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { auth } from "../Firebase/firebaseConfig";
-import Swal from 'sweetalert2'
-import { loginProviderAsync } from "../redux/actions/userActions";
-import { useDispatch } from "react-redux";
-import googleLogo from "../assets/gogle_logo.png"
-import screen from "./../assets/Logo.png"
-
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../Firebase/firebaseConfig';
+import Swal from 'sweetalert2';
+import { loginProviderAsync } from '../redux/actions/userActions';
+import { useDispatch } from 'react-redux';
+import googleLogo from '../assets/gogle_logo.png';
+import screen from './../assets/Logo.png';
 
 const SignIn = () => {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState('');
   const validatePhoneNumber = (numberPhone, lengthString) => {
     if (!numberPhone) {
       return false;
     }
 
-    const value = numberPhone.replace(/\D/g, "");
+    const value = numberPhone.replace(/\D/g, '');
     const valueLength = value.length;
     return { isValid: valueLength === lengthString, value };
   };
@@ -30,7 +29,7 @@ const SignIn = () => {
     );
     console.log(isValid, validNumber);
     if (!isValid) {
-      alert("el numero debe tener 10 caracteres");
+      alert('el numero debe tener 10 caracteres');
     }
     generateReCaptcha();
     const recapcthaValue = window.recaptchaVerifier;
@@ -38,28 +37,25 @@ const SignIn = () => {
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
         console.log(confirmationResult);
-        navigate("/verification");
+        navigate('/verification');
       })
       .catch((error) => {
         console.log(error);
-        Swal.fire('Upps ','intenta de nuevo  ','error'
-
-        )
-        navigate("/intro")
-
+        Swal.fire('Upps ', 'intenta de nuevo  ', 'error');
+        navigate('/intro');
       });
   };
   const generateReCaptcha = () => {
     try {
       window.recaptchaVerifier = new RecaptchaVerifier(
-        "recaptch-container",
+        'recaptch-container',
         {
-          size: "invisible",
+          size: 'invisible',
 
           callback: (response) => {
             // reCAPTCHA solved, allow signInWithPhoneNumber.
             // onSignInSubmit();
-            // console.log(response);
+            console.log(response);
           },
         },
         auth
@@ -68,15 +64,13 @@ const SignIn = () => {
       console.log(error);
     }
   };
-  const handleLoginGoogle = async() => {
-    dispatch(loginProviderAsync('google'))
-
-    
-  }
+  const handleLoginGoogle = async () => {
+    dispatch(loginProviderAsync('google'));
+  };
   return (
     <div className="signin">
-    <img src={screen} />
-     <h2>SignIn </h2> 
+      <img src={screen} />
+      <h2>SignIn </h2>
       <form onSubmit={handleSubmit}>
         <label>
           Phone number
@@ -90,7 +84,12 @@ const SignIn = () => {
           />
         </label>
         <div id="recaptch-container"> </div>
-        <img src={googleLogo} alt="Google" style={{width: 50, marginLeft: 30}} onClick={handleLoginGoogle} />
+        <img
+          src={googleLogo}
+          alt="Google"
+          style={{ width: 50, marginLeft: 30 }}
+          onClick={handleLoginGoogle}
+        />
         <button type="submit"> Sign in</button>
       </form>
     </div>
