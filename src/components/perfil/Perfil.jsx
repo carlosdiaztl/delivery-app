@@ -124,7 +124,7 @@ const Perfil = () => {
   };
   console.log(usuarios);
   return (
-    <div className="perfil">
+    <div className={userStore.admin ? 'perfil_admin' : 'perfil'}>
       {userStore && userStore.admin ? (
         <div>
           <span>
@@ -145,48 +145,68 @@ const Perfil = () => {
         </div>
       ) : (
         <>
-          {' '}
-          <img src={userStore.avatar ? userStore.avatar : ''} />
-          <span>
-            {userStore.name ? userStore.name : ''}
-            {/* <button onClick={sendInfoUser}> Edit name</button>{" "} */}
-          </span>
-          <span>
-            Direccion: {userStore.address ? userStore.address : 'No definida'}{' '}
-          </span>
-          <button onClick={showForm}> Editar perfil</button>
-          {isEdit ? (
-            <form onSubmit={handleSubmit(onSubmit)}>
-              {/* register your input into the hook by invoking the "register" function */}
-              <input
-                defaultValue={defaulValues.name}
-                placeholder="Name"
-                {...register('name')}
-              />
+          <div className="d-flex align-items-center">
+            <div className="card mb-4">
+              <div className="card-body">
+                <div className="user-avatar-section">
+                  <div className="d-flex align-items-center flex-column">
+                    {' '}
+                    <img
+                      className="perfil_img"
+                      src={userStore.avatar ? userStore.avatar : ''}
+                    />
+                    <div className="user-info text-center">
+                      <h4 className="mb-2">
+                        {userStore.name ? userStore.name : ''}
+                      </h4>
+                      <span className="badge bg-label-secondary mt-1">
+                        User
+                      </span>
+                    </div>
+                    <span>
+                      Direccion:{' '}
+                      {userStore.address ? userStore.address : 'No definida'}{' '}
+                    </span>
+                    <button onClick={showForm}> Editar perfil</button>
+                    {isEdit ? (
+                      <form onSubmit={handleSubmit(onSubmit)}>
+                        {/* register your input into the hook by invoking the "register" function */}
+                        <input
+                          defaultValue={defaulValues.name}
+                          placeholder="Name"
+                          {...register('name')}
+                        />
 
-              {/* include validation with required or other standard HTML validation rules */}
-              <input
-                defaultValue={defaulValues.address}
-                placeholder="Direccion"
-                {...register('address', { required: true })}
-              />
-              {/* errors will return when field validation fails  */}
-              {errors.exampleRequired && <span>This field is required</span>}
-              <FloatingLabel className="mb-3">
-                <Form.Control
-                  type="file"
-                  size="sm"
-                  defaultValue={defaulValues.image}
-                  {...register('image', { required: true })}
-                />
-                {/* <p>{errors[item.name]?.message}</p> */}
-              </FloatingLabel>
+                        {/* include validation with required or other standard HTML validation rules */}
+                        <input
+                          defaultValue={defaulValues.address}
+                          placeholder="Direccion"
+                          {...register('address', { required: true })}
+                        />
+                        {/* errors will return when field validation fails  */}
+                        {errors.exampleRequired && (
+                          <span>This field is required</span>
+                        )}
+                        <FloatingLabel className="mb-3">
+                          <Form.Control
+                            type="file"
+                            size="sm"
+                            defaultValue={defaulValues.image}
+                            {...register('image', { required: true })}
+                          />
+                          {/* <p>{errors[item.name]?.message}</p> */}
+                        </FloatingLabel>
 
-              <input type="submit" />
-            </form>
-          ) : (
-            ''
-          )}
+                        <input type="submit" />
+                      </form>
+                    ) : (
+                      ''
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </>
       )}
 

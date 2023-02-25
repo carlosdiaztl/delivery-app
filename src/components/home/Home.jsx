@@ -113,9 +113,9 @@ const Home = () => {
                         navigate(`/restaurante${item.name}`);
                       }}
                     >
-                      <div className="col-md-4">
+                      <div className="col-md-5 imgRestaurant">
                         <img
-                          className="card-img card-img-left imgRestaurant"
+                          className="card-img card-img-left"
                           src={`${item.image}`}
                           alt="Card image"
                         />

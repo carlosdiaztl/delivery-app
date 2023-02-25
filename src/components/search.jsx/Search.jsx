@@ -1,15 +1,15 @@
-import { onAuthStateChanged } from "firebase/auth";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { auth } from "../../Firebase/firebaseConfig";
-import { actionGetPlatosAsync } from "../../redux/actions/platosActions";
-import Footer from "../home/footer/Footer";
-import "./style.scss";
+import { onAuthStateChanged } from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../../Firebase/firebaseConfig';
+import { actionGetPlatosAsync } from '../../redux/actions/platosActions';
+import Footer from '../home/footer/Footer';
+import './style.scss';
 
 const Search = () => {
   const navigate = useNavigate();
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   const [busqueda, setBusqueda] = useState(false);
   const [msj, setMsj] = useState(false);
   const { platos } = useSelector((store) => store.platosStore);
@@ -18,6 +18,7 @@ const Search = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user?.displayName) {
+        console.log(user?.displayName);
       } else {
         navigate(`/createaccount/${user.uid}`);
         console.log(user);
@@ -36,17 +37,17 @@ const Search = () => {
 
   useEffect(() => {
     console.log(value);
-    if (value === "") {
+    if (value === '') {
       setBusqueda(false);
       setMsj(false);
     } else {
       console.log(platosFind);
       setBusqueda(true);
     }
-    if (value !== "" && !platosFind.length) {
+    if (value !== '' && !platosFind.length) {
       setMsj(true);
 
-      console.log("sin reultados");
+      console.log('sin reultados');
     }
   }, [value]);
   const goProduct = (name) => {
@@ -74,11 +75,11 @@ const Search = () => {
               key={index}
             >
               <figure>
-                {" "}
+                {' '}
                 <img src={plato.image} />
-              </figure>{" "}
+              </figure>{' '}
               <span>
-                <h5>{plato.name} </h5> <h5>$ {plato.price}</h5>{" "}
+                <h5>{plato.name} </h5> <h5>$ {plato.price}</h5>{' '}
               </span>
             </span>
           ))

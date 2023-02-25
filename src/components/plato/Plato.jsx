@@ -1,19 +1,20 @@
-import { onAuthStateChanged } from "firebase/auth";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import Swal from "sweetalert2";
-import { auth } from "../../Firebase/firebaseConfig";
-import { actionAddCompra } from "../../redux/actions/comprasActions";
-import { actionGetPlatosAsync } from "../../redux/actions/platosActions";
-import { actionGetrestaurantesAsync } from "../../redux/actions/restaurantesActions";
-import "./stylePlato.scss";
+import { onAuthStateChanged } from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { auth } from '../../Firebase/firebaseConfig';
+import { actionAddCompra } from '../../redux/actions/comprasActions';
+import { actionGetPlatosAsync } from '../../redux/actions/platosActions';
+// import { actionGetrestaurantesAsync } from "../../redux/actions/restaurantesActions";
+import './stylePlato.scss';
 const Plato = () => {
   const [value, setValue] = useState(1);
   const navigate = useNavigate();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user?.displayName) {
+        console.log(true);
       } else {
         navigate(`/createaccount/${user.uid}`);
         console.log(user);
@@ -24,7 +25,7 @@ const Plato = () => {
   useEffect(() => {
     dispatch(actionGetPlatosAsync());
   }, [dispatch]);
-  useEffect(() => {}, [dispatch]);
+  // useEffect(() => {}, [dispatch]);
   const { platos } = useSelector((state) => state.platosStore);
   console.log(platos);
   const { name } = useParams();
@@ -36,15 +37,16 @@ const Plato = () => {
     navigate(`/restaurante${restaurante}`);
   };
   const changeValue = (p) => {
-    console.log("menor");
-    if (p === "minus") {
+    if (p === 'minus') {
       if (value < 2) {
+        console.log('menor');
       } else {
         setValue(value - 1);
       }
     }
-    if (p === "mas") {
+    if (p === 'mas') {
       if (value === 10) {
+        console.log('menor');
       } else {
         setValue(value + 1);
       }
@@ -62,91 +64,91 @@ const Plato = () => {
     console.log(newBuy);
     dispatch(actionAddCompra(newBuy));
     Swal.fire(
-      "Tu compra ha sido agregada con exito",
-      "que la disfrutes",
-      "success"
+      'Tu compra ha sido agregada con exito',
+      'que la disfrutes',
+      'success'
     );
   };
   return (
     <>
       {platoSelect ? (
         <>
-          {" "}
+          {' '}
           <div>
             <button
               onClick={() => {
                 goBack(platoSelect.property);
               }}
             >
-              <strong>{`<`} </strong>{" "}
+              <strong>{`<`} </strong>{' '}
             </button>
             <span className="platoS">
               <img src={platoSelect.image} />
               <p>{platoSelect.name} </p>
-              <p>{platoSelect.price ? platoSelect.price : ""} </p>
-            </span>{" "}
-          </div>{" "}
+              <p>{platoSelect.price ? platoSelect.price : ''} </p>
+            </span>{' '}
+          </div>{' '}
           <div className="divbotones">
             <aside className="compraButtons">
-              {" "}
+              {' '}
               <span
                 className="compraButtons_buttons"
                 onClick={() => {
-                  changeValue("minus");
+                  changeValue('minus');
                 }}
               >
-                {" "}
+                {' '}
                 -
               </span>
               <span>{value} </span>
               <span
                 className="compraButtons_buttons"
                 onClick={() => {
-                  changeValue("mas");
+                  changeValue('mas');
                 }}
               >
-                {" "}
+                {' '}
                 +
               </span>
             </aside>
             <button className="divbotones_compra" onClick={agregarCompra}>
-              {" "}
+              {' '}
               <span>Add </span>
-              <span>{platoSelect ? value * platoSelect.price : ""} </span>
+              <span>{platoSelect ? value * platoSelect.price : ''} </span>
             </button>
           </div>
           <div className="divbotones">
             <aside className="compraButtons">
-              {" "}
+              {' '}
               <span
                 className="compraButtons_buttons"
                 onClick={() => {
-                  changeValue("minus");
+                  changeValue('minus');
                 }}
               >
-                {" "}
+                {' '}
                 -
               </span>
               <span>{value} </span>
               <span
                 className="compraButtons_buttons"
                 onClick={() => {
-                  changeValue("mas");
+                  changeValue('mas');
                 }}
               >
-                {" "}
+                {' '}
                 +
               </span>
             </aside>
             <button className="divbotones_compra" onClick={agregarCompra}>
-              {" "}
+              {' '}
               <span>Add </span>
-              <span>{platoSelect ? value * platoSelect.price : ""} </span>
+              <span>{platoSelect ? value * platoSelect.price : ''} </span>
             </button>
           </div>
         </>
       ) : (
-        ""
+        ''
       )}
     </>
   );

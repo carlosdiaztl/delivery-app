@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import '././../.././styles/variables.scss';
+@import '././../.././styles/mixins.scss';
 .body {
   height: 94vh;
   width: 100vw;
@@ -97,7 +99,8 @@ h4 {
   position: fixed;
   bottom: 6%;
 }
-.imgRestaurant {
-  max-width: 200px !important;
-  max-height: 200px !important;
+.card-img-left {
+  @include from($medium) {
+    max-width: 400px;
+  }
 }

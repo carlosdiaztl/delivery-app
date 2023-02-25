@@ -1,101 +1,99 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Button, FloatingLabel, Form } from "react-bootstrap";
-import { actionGetrestaurantesAsync } from "../../redux/actions/restaurantesActions";
-import { fileUpLoad } from "../../services/fileUpLoad";
-import { actionAddPlatoAsync } from "../../redux/actions/platosActions";
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { actionGetrestaurantesAsync } from '../../redux/actions/restaurantesActions';
+import { fileUpLoad } from '../../services/fileUpLoad';
+import { actionAddPlatoAsync } from '../../redux/actions/platosActions';
 
 const category = [
-    {
-      label: "fast food",
-      value: 1,
-    },
-    {
-      label: "pizza",
-      value: 2,
-    },
-    {
-      label: "hamburguers",
-      value: 3,
-    },
-    {
-      label: "pasta",
-      value: 4,
-    },
-    {
-      label: "mexican",
-      value: 5,
-    },
-    {
-      label: "salads",
-      value: 6,
-    },
-    {
-      label: "vegetarian",
-      value: 7,
-    },
-  ];
+  {
+    label: 'fast food',
+    value: 1,
+  },
+  {
+    label: 'pizza',
+    value: 2,
+  },
+  {
+    label: 'hamburguers',
+    value: 3,
+  },
+  {
+    label: 'pasta',
+    value: 4,
+  },
+  {
+    label: 'mexican',
+    value: 5,
+  },
+  {
+    label: 'salads',
+    value: 6,
+  },
+  {
+    label: 'vegetarian',
+    value: 7,
+  },
+];
 
-  const inputList = [
-    {
-      label: "Nombre",
-      type: "text",
-      name: "name",
-    },
-    {
-      label: "Categoría",
-      type: "select",
-      name: "category",
-    },
-    {
-      label: "Descripción",
-      type: "textarea",
-      name: "description",
-    },
-    {
-      label: "Precio",
-      type: "number",
-      name: "price",
-    },
-    {
-      label: "Propiedad",
-      type: "selectTwo",
-      name: "property",
-    },
-    {
-      label: "Imagen",
-      type: "file",
-      name: "image",
-    },
-  ];
+const inputList = [
+  {
+    label: 'Nombre',
+    type: 'text',
+    name: 'name',
+  },
+  {
+    label: 'Categoría',
+    type: 'select',
+    name: 'category',
+  },
+  {
+    label: 'Descripción',
+    type: 'textarea',
+    name: 'description',
+  },
+  {
+    label: 'Precio',
+    type: 'number',
+    name: 'price',
+  },
+  {
+    label: 'Propiedad',
+    type: 'selectTwo',
+    name: 'property',
+  },
+  {
+    label: 'Imagen',
+    type: 'file',
+    name: 'image',
+  },
+];
 const AddPlato = () => {
-    const dispatch = useDispatch();
-    const {restaurantes}=  useSelector((store) => store.restaurantStore);
-   
+  const dispatch = useDispatch();
+  const { restaurantes } = useSelector((store) => store.restaurantStore);
+
   const navigate = useNavigate();
   const userStore = useSelector((store) => store.userStore);
   useEffect(() => {
     if (userStore.admin) {
+      console.log(true);
     } else {
-      navigate("/home");
+      navigate('/home');
     }
   }, [userStore]);
   useEffect(() => {
-    dispatch(actionGetrestaurantesAsync())
-    
-   
-  }, [dispatch])
+    dispatch(actionGetrestaurantesAsync());
+  }, [dispatch]);
   console.log(restaurantes);
-  const restaurantesProperty= restaurantes.map((item,index)=>(
-    item.name
-  ))
+  const restaurantesProperty = restaurantes.map((item, index) => item.name);
   console.log(restaurantesProperty);
   const {
     register,
-    handleSubmit,required,
-    formState: { errors }
+    handleSubmit,
+    required,
+    formState: { errors },
   } = useForm({});
   const onSubmit = async (data) => {
     const image = await fileUpLoad(data.image[0]);
@@ -109,25 +107,23 @@ const AddPlato = () => {
     };
     console.log(newPlate);
     dispatch(actionAddPlatoAsync(newPlate));
-    navigate("/home")
+    navigate('/home');
   };
   const goHome = () => {
-    navigate("/home");
+    navigate('/home');
   };
   return (
-   
-    
     <div className="p-5">
-    <button onClick={goHome}>home </button>
+      <button onClick={goHome}>home </button>
       <h1>Agregar nuevo plato</h1>
       <Form onSubmit={handleSubmit(onSubmit)}>
         {inputList.map((item, index) => {
-          if (item.type === "select") {
+          if (item.type === 'select') {
             return (
               <FloatingLabel key={index} label={item.label} className="mb-3">
                 <Form.Select
                   aria-label="Default select example"
-                  {...register(item.name,{ required: true })}
+                  {...register(item.name, { required: true })}
                 >
                   <option value="">Open this select menu</option>
                   {category.map((item) => (
@@ -144,15 +140,15 @@ const AddPlato = () => {
               </FloatingLabel>
             );
           }
-          if(item.type === "selectTwo"){
+          if (item.type === 'selectTwo') {
             return (
               <FloatingLabel key={index} label={item.label} className="mb-3">
                 <Form.Select
                   aria-label="Default select example"
-                  {...register(item.name,{ required: true } )}
+                  {...register(item.name, { required: true })}
                 >
                   <option value="">Open this select menu</option>
-                  {restaurantesProperty.map((item,index) => (
+                  {restaurantesProperty.map((item, index) => (
                     <option
                       key={index}
                       value={item}
@@ -165,12 +161,14 @@ const AddPlato = () => {
                 <p>{errors[item.name]?.message}</p>
               </FloatingLabel>
             );
-
           }
-          if (item.type === "textarea") {
+          if (item.type === 'textarea') {
             return (
               <FloatingLabel key={index} label={item.label} className="mb-3">
-                <Form.Control as="textarea" {...register(item.name,{ required: true })} />
+                <Form.Control
+                  as="textarea"
+                  {...register(item.name, { required: true })}
+                />
                 <p>{errors[item.name]?.message}</p>
               </FloatingLabel>
             );
@@ -180,8 +178,8 @@ const AddPlato = () => {
             <FloatingLabel key={index} label={item.label} className="mb-3">
               <Form.Control
                 type={item.type}
-                size={item.type === "file" ? "sm" : ""}
-                {...register(item.name,{ required: true })}
+                size={item.type === 'file' ? 'sm' : ''}
+                {...register(item.name, { required: true })}
               />
               <p>{errors[item.name]?.message}</p>
             </FloatingLabel>
@@ -193,7 +191,7 @@ const AddPlato = () => {
         </Button>
       </Form>
     </div>
-  )
+  );
 };
 
 export default AddPlato;

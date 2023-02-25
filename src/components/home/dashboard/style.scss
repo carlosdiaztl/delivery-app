@@ -1,38 +1,11 @@
-
-$fondo-home: #fef0ef;
-$color-precio: #fb174f;
-$color-filter: #fffdfe;
-$datos-pizza: #252525;
-$color-reviews: #f97707;
-$size-body: 16px;
-
-.dashboard{
-  img{
-    width: 500px;
+.dashboard {
+  display: flex;
+  justify-content: center;
+  img {
+    width: 50vw;
+    height: 20vh;
+    object-fit: cover;
+    min-width: 200px;
+    min-height: 150px;
+  }
 }
-}
-
-  
-// .dashboard {
-//     width: 100vw;
-//     height: 100%;
-
-
-@media screen and (max-width:650px) {
-    .dashboard{
-      margin-top: 5px;
-       display: flex;
-       flex-direction: column;
-       align-items: center;
-       img{
-        width: 100%;
-        height: 170px;
-        object-fit: cover;
-        
-    }
-      
-       
-    }
-    
-}
-

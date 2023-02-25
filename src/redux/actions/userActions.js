@@ -1,10 +1,24 @@
-import { updateEmail, updatePassword, updateProfile,signOut, signInWithPopup } from "firebase/auth";
-import { doc,addDoc,updateDoc,collection,getDocs, setDoc, getDoc } from "firebase/firestore";
-import { auth, dataBase, google } from "../../Firebase/firebaseConfig";
+import {
+  updateEmail,
+  updatePassword,
+  updateProfile,
+  signOut,
+  signInWithPopup,
+} from 'firebase/auth';
+import {
+  doc,
+  addDoc,
+  updateDoc,
+  collection,
+  getDocs,
+  setDoc,
+  getDoc,
+} from 'firebase/firestore';
+import { auth, dataBase, google } from '../../Firebase/firebaseConfig';
 
-import { userTypes } from "../types/userTypes";
-const collectionName="usuarios"
-const usuarioColletion=collection(dataBase,collectionName)
+import { userTypes } from '../types/userTypes';
+const collectionName = 'usuarios';
+const usuarioColletion = collection(dataBase, collectionName);
 
 export const actionSignPhoneAsync = (codigo) => {
   return (dispatch) => {
@@ -27,9 +41,7 @@ export const actionSignPhoneAsync = (codigo) => {
             error: false,
           })
         );
-        searchInfo(uid,displayName,email,photoURL,phoneNumber)
-        
-        
+        searchInfo(uid, displayName, email, photoURL, phoneNumber);
       })
       .catch((error) => {
         console.log(error);
@@ -63,12 +75,9 @@ export const actionUserCreateAsync = ({ password, email, name }) => {
       });
       dispatch(actionUserCreatesync({ name, email, password, error: false }));
       // console.log(auth.currentUser.uid);
-       
+
       //  const docRef=doc(dataBase,`usuarios/${auth.currentUser.uid}`)
       //   setDoc(docRef,{email:email,name:name})
-
-        
-        
     } catch (error) {
       console.log(error);
       dispatch(
@@ -84,91 +93,81 @@ const actionUserCreatesync = (parcialUser) => {
   };
 };
 
-
 export const loginProviderAsync = (provider) => {
   return (dispatch) => {
     signInWithPopup(auth, google)
       .then((result) => {
         const user = result.user;
-        console.log(user)
-        const { displayName, accessToken, photoURL, phoneNumber,uid } = user.auth.currentUser
-        
-        dispatch(actionLoginSync({
-          email: user.email, 
-          name: displayName,
-          accessToken,
-          avatar: photoURL,
-          phoneNumber,
-          error: false
-        }))
+        console.log(user);
+        const { displayName, accessToken, photoURL, phoneNumber, uid } =
+          user.auth.currentUser;
+
+        dispatch(
+          actionLoginSync({
+            email: user.email,
+            name: displayName,
+            accessToken,
+            avatar: photoURL,
+            phoneNumber,
+            error: false,
+          })
+        );
         console.log(uid);
-        searchInfo(uid,displayName,user.email,photoURL,phoneNumber)
-        
-        
+        searchInfo(uid, displayName, user.email, photoURL, phoneNumber);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
-        dispatch(actionLoginSync({
-          error: true,
-          errorMessage
-        }))
-      })
+        dispatch(
+          actionLoginSync({
+            error: true,
+            errorMessage,
+          })
+        );
+      });
+  };
+};
+const searchInfo = async (uid, displayName, email, photoURL, phoneNumber) => {
+  const docRef = doc(dataBase, `usuarios/${uid}`);
+  const docu = await getDoc(docRef);
+  const dataFinal = docu.data();
+  console.log(dataFinal);
+
+  if (dataFinal) {
+    console.log(docu);
+  } else {
+    setDoc(docRef, {
+      email: email,
+      rol: 'usuario',
+      name: displayName,
+      phoneNumber,
+      avatar: photoURL,
+    });
   }
-}
-const searchInfo=async(uid,displayName,email,photoURL,phoneNumber)=>{
-  const docRef=doc(dataBase,`usuarios/${uid}`)
-        const docu=  await  getDoc(docRef)
-        const dataFinal= docu.data()
-        console.log(dataFinal);
-        
-        if (dataFinal) {
-          
-        }
-        else{
-          setDoc(docRef,{email:email,rol:"usuario",name:displayName,phoneNumber,avatar: photoURL})
-
-        }
-
-}
-
+};
 
 export const actionLoginSync = (user) => {
   return {
     type: userTypes.USER_LOGIN,
-    payload: { ...user }
-  }
-}
+    payload: { ...user },
+  };
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-export const actionUserLogOutAsync=()=>{
-  return (dispatch)=>{
+export const actionUserLogOutAsync = () => {
+  return (dispatch) => {
     signOut(auth)
-    .then(()=>{
-      dispatch(actionUserLogOutSync())
-    })
-    .catch((error)=>{console.log(error);})
-  }
-}
-const actionUserLogOutSync=()=>{
-  return{
-    type:userTypes.USER_LOGOUT,
-  }
-}
-
-
-
+      .then(() => {
+        dispatch(actionUserLogOutSync());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+const actionUserLogOutSync = () => {
+  return {
+    type: userTypes.USER_LOGOUT,
+  };
+};
