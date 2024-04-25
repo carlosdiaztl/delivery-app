@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site":"crud-completo-a347c",
     "public": "build",
     "ignore": [
       "firebase.json",

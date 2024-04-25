@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import location from '../../assets/location.png';
+import logout from '../../assets/logout.png';
 import restaurant1 from '../../assets/restaurant1.png';
 import Dashboard from './dashboard/Dashboard';
 import Dashboardtwo from './dashboardtwo/Dashboardtwo';
@@ -15,7 +16,13 @@ import { auth } from '../../Firebase/firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { actionGetPlatosAsync } from '../../redux/actions/platosActions';
+import NavBar from '../navbar/NavBar';
 const Home = () => {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,115 +73,103 @@ const Home = () => {
 
   return (
     <div className="body">
-      <nav className="nav">
-        <section className="nav_section">
-          {' '}
-          <img src={location} />
-          <span>
-            <p className="nav_p">Deliver to</p>
-            <p> 882 Well St, New-York ↓ </p>
-            <button onClick={LogOutUser}> Log Out</button>
-          </span>{' '}
-          {userStore.admin ? (
-            <div className="buttonsH">
-              {' '}
-              <button className="nav_new" onClick={addRestaurant}>
-                {' '}
-                Add restaurant
-              </button>
-              <button className="nav_new" onClick={addDish}>
-                {' '}
-                Add dish
-              </button>
-            </div>
-          ) : (
-            <></>
-          )}
-        </section>
+      <NavBar/>
+        <Dashboard />
 
-        <section className="nav_sectiontwo">
-          <Dashboard />
-        </section>
-      </nav>
       <div className="main">
-        <h4>Restaurants and cafes </h4>
+        <h1>Restaurantes y cafes </h1>
         <section className="main_dashboard">
           <Dashboardtwo />
         </section>
-        <div className="d-flex">
-          <div className="col-md">
-            <div className="card mb-3 mb-2">
-              {filtroRestaurantes.length
-                ? filtroRestaurantes.map((item, index) => (
+        <div className="container">
+          <div className="row">
+            {filtroRestaurantes.length
+              ? filtroRestaurantes.map((item, index) => (
+                  <div key={index} className="col-md-12 mb-3">
                     <div
-                      key={index}
-                      className="row g-0 mb-2"
+                      className="card h-100 cursor-pointer"
                       onClick={() => {
                         navigate(`/restaurante${item.name}`);
                       }}
                     >
-                      <div className="col-md-5 imgRestaurant">
-                        <img
-                          className="card-img card-img-left"
-                          src={`${item.image}`}
-                          alt="Card image"
-                        />
-                      </div>
-                      <div className="col-md-8">
-                        <div className="card-body">
-                          <h5 className="card-title"> {item.name}</h5>
-                          <img width={'50px'} src={fourStars} />{' '}
-                          <p className="card-text">
-                            Work time {item.apertureTime}:30-{item.closeTime}:00
-                          </p>
-                          <p className="card-text">
-                            <small className="text-muted">
-                              before you {item.minPrice}$
-                            </small>
-                          </p>
+                      <div className="row g-0">
+                        <div className="col-md-5">
+                          <img
+                            className="card-img card-img-left img-fluid"
+                            src={item.image}
+                            alt="Restaurant Image"
+                          />
+                        </div>
+                        <div className="col-md-7">
+                          <div className="card-body">
+                            <h5 className="card-title">{item.name}</h5>
+                            <img
+                              className="stars"
+                              width="50px"
+                              src={fourStars}
+                              alt="Rating"
+                            />
+                            <p className="card-text">
+                              Work time {item.apertureTime}:30-{item.closeTime}
+                              :00
+                            </p>
+                            <p className="card-text">
+                              <small className="text-muted">
+                                Before you {item.minPrice}$
+                              </small>
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  ))
-                : restaurantes.map((item, index) => (
+                  </div>
+                ))
+              : restaurantes.map((item, index) => (
+                  <div key={index} className="col-lg-4 col-md-6 mb-3">
                     <div
-                      key={index}
-                      className="row g-0 mb-2"
+                      className="card h-100 cursor-pointer"
                       onClick={() => {
                         navigate(`/restaurante${item.name}`);
                       }}
                     >
-                      <div className="col-md-4">
-                        <img
-                          className="card-img card-img-left"
-                          src={`${item.image}`}
-                          alt="Card image"
-                        />
-                      </div>
-                      <div className="col-md-8">
-                        <div className="card-body">
-                          <h5 className="card-title"> {item.name}</h5>
-                          <img width={'50px'} src={fourStars} />{' '}
-                          <p className="card-text">
-                            Work time {item.apertureTime}:30-{item.closeTime}:00
-                          </p>
-                          <p className="card-text">
-                            <small className="text-muted">
-                              before you {item.minPrice}$
-                            </small>
-                          </p>
+                      <div className="row g-0">
+                        <div className="col-md-5">
+                          <img
+                            className="card-img card-img-left img-fluid"
+                            src={item.image}
+                            alt="Restaurant Image"
+                          />
+                        </div>
+                        <div className="col-md-7">
+                          <div className="card-body">
+                            <h5 className="card-title">{item.name}</h5>
+                            <img
+                              className="stars"
+                              width="50px"
+                              src={fourStars}
+                              alt="Rating"
+                            />
+                            <p className="card-text">
+                              Work time {item.apertureTime}:30-{item.closeTime}
+                              :00
+                            </p>
+                            <p className="card-text">
+                              <small className="text-muted">
+                                Before you {item.minPrice}$
+                              </small>
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  ))}
-              {}
-            </div>
+                  </div>
+                ))}
           </div>
         </div>
       </div>
       {comprasStore.length ? (
         <button onClick={irCompras} className="botonCompras">
-          <span> View card</span>{' '}
+          <span> Ver carrito</span>{' '}
         </button>
       ) : (
         ''
