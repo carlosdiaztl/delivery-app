@@ -115,7 +115,7 @@ const Perfil = () => {
             Viendo los datos{' '}
             <button onClick={sendInfoUser}>Ver usuarios</button>
           </span>
-          {isEdit && usuarios.length ? (
+          {usuarios.length && (
             <div className='table-responsive'>
 
             <Table striped bordered hover>
@@ -137,7 +137,7 @@ const Perfil = () => {
               </tbody>
             </Table>
             </div>
-          ) : null}
+          ) }
         </div>
       ) : (
         <div className="d-flex align-items-center">
