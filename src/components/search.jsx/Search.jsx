@@ -6,6 +6,7 @@ import { auth } from '../../Firebase/firebaseConfig';
 import { actionGetPlatosAsync } from '../../redux/actions/platosActions';
 import Footer from '../home/footer/Footer';
 import './style.scss';
+import NavBar from '../navbar/NavBar';
 
 const Search = () => {
   const navigate = useNavigate();
@@ -33,7 +34,9 @@ const Search = () => {
     setValue(parametro);
   };
 
-  const platosFind = platos.filter((platos) => platos.name.includes(value));
+  const platosFind = platos.filter((plato) =>
+  plato.name.toLowerCase().includes(value.toLowerCase())
+);
 
   useEffect(() => {
     console.log(value);
@@ -56,6 +59,8 @@ const Search = () => {
 
   return (
     <div>
+      <NavBar/>
+
       <span className="input">
         <input
           onChange={SearchInput}
@@ -64,7 +69,7 @@ const Search = () => {
         />
       </span>
       <p className="p"> Recent Searches</p>
-      <section>
+      <section className='container'>
         {busqueda && platosFind.length ? (
           platosFind.map((plato, index) => (
             <span

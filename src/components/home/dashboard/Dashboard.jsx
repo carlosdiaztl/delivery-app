@@ -60,8 +60,8 @@ const Dashboard = () => {
             <img src={image} className="d-block w-100 object-fit-cover" alt={`Promo ${index + 1}`} style={{  height: `${alturaImagen}px`, objectFit: 'cover' }} />
           </div>
           <Carousel.Caption>
-            <h3>Promo {index + 1}</h3>
-            <p>Descripción de la promoción {index + 1}</p>
+            {/* <h3>Promo {index + 1}</h3>
+            <p>Descripción de la promoción {index + 1}</p> */}
           </Carousel.Caption>
         </Carousel.Item>
       ))}

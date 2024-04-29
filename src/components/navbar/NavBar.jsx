@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import logout from '../../assets/logout.png';
 import logo from '../../assets/logonayis.png';
@@ -13,6 +13,7 @@ const NavBar = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userStore = useSelector((store) => store.userStore);
 
   const LogOutUser = () => {
     dispatch(actionUserLogOutAsync());
@@ -45,20 +46,24 @@ const NavBar = () => {
             <div className="col">
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <button
-                    className="btn btn-outline-light nav-link"
-                    onClick={addRestaurant}
-                  >
-                    Añadir Restaurante
-                  </button>
+                  {userStore.admin && (
+                    <button
+                      className="btn btn-outline-light nav-link"
+                      onClick={addRestaurant}
+                    >
+                      Añadir Restaurante
+                    </button>
+                  )}
                 </li>
                 <li className="nav-item">
-                  <button
-                    className="btn btn-outline-light nav-link"
-                    onClick={addDish}
-                  >
-                    Añadir Plato
-                  </button>
+                  {userStore.admin && (
+                    <button
+                      className="btn btn-outline-light nav-link"
+                      onClick={addDish}
+                    >
+                      Añadir Plato
+                    </button>
+                  )}
                 </li>
               </ul>
             </div>

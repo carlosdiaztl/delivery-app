@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form';
 import { FloatingLabel, Form, Card, Table } from 'react-bootstrap';
 import { fileUpLoad } from '../../services/fileUpLoad';
 import Swal from 'sweetalert2';
+import NavBar from '../navbar/NavBar';
 
 const Perfil = () => {
   const navigate = useNavigate();
@@ -104,6 +105,9 @@ const Perfil = () => {
   };
 
   return (
+    <>
+      <NavBar/>
+
     <div className={userStore.admin ? 'perfil_admin' : 'perfil'}>
       {userStore && userStore.admin ? (
         <div>
@@ -112,6 +116,8 @@ const Perfil = () => {
             <button onClick={sendInfoUser}>Ver usuarios</button>
           </span>
           {isEdit && usuarios.length ? (
+            <div className='table-responsive'>
+
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -130,6 +136,7 @@ const Perfil = () => {
                 ))}
               </tbody>
             </Table>
+            </div>
           ) : null}
         </div>
       ) : (
@@ -188,6 +195,7 @@ const Perfil = () => {
       )}
       <Footer />
     </div>
+    </>
   );
 };
 

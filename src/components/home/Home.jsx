@@ -76,12 +76,12 @@ const Home = () => {
       <NavBar/>
         <Dashboard />
 
-      <div className="main">
+      <div className="main p-4">
         <h1>Restaurantes y cafes </h1>
         <section className="main_dashboard">
-          <Dashboardtwo />
+          {/* <Dashboardtwo /> */}
         </section>
-        <div className="container">
+        <div className="col-12">
           <div className="row">
             {filtroRestaurantes.length
               ? filtroRestaurantes.map((item, index) => (

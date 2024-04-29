@@ -9,6 +9,7 @@ import { actionGetPlatosAsync } from '../../redux/actions/platosActions';
 import { Card, Button } from 'react-bootstrap';
 import './stylePlato.scss';
 import Footer from '../home/footer/Footer';
+import NavBar from '../navbar/NavBar';
 
 const Plato = () => {
   const [quantity, setQuantity] = useState(1);
@@ -62,11 +63,12 @@ const Plato = () => {
     <>
       {platoSelect && (
         <div className="container">
+        <NavBar />
           <div className="row justify-content-center">
             <div className="col-md-8">
               <Card>
                 <Card.Header>
-                  <Button variant="link"  onClick={goBack}>&lt;Regresar</Button>
+                  <Button className='text-left col-md-8 col-12' variant="link"  onClick={goBack}>&lt;Regresar</Button>
                 </Card.Header>
                 <Card.Body>
                   <Card.Title>{platoSelect.name}</Card.Title>
@@ -81,13 +83,13 @@ const Plato = () => {
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                  <div className="divbotones">
-                    <aside className="compraButtons">
+                  <div className="my-4 col-md-12 row">
+                    <aside className="compraButtons col-md-6 d-flex justify-content-center gap-2">
                       <Button variant="outline-secondary" onClick={() => changeQuantity('decrease')}>-</Button>
-                      <span>{quantity}</span>
+                      <span className='text-center mt-1'>{quantity}</span>
                       <Button variant="outline-secondary" onClick={() => changeQuantity('increase')}>+</Button>
                     </aside>
-                    <Button variant="primary" onClick={agregarCompra}>
+                    <Button className='mt-4 col-md-6' variant="primary" onClick={agregarCompra}>
                       <span>Añadir </span>
                       <span>${platoSelect.price && quantity * platoSelect.price}</span>
                     </Button>

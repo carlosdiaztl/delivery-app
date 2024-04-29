@@ -3,14 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import CodeVerificaction from '../components/CodeVerificaction';
-import CreateAccount from '../components/CreateAccount';
-import Home from '../components/home/Home';
-import SignIn from '../components/SignIn';
-import { auth, dataBase } from '../Firebase/firebaseConfig';
-import { actionSignPhoneSync } from '../redux/actions/userActions';
-import PrivateRouter from './PrivateRouter';
-import PublicRouter from './PublicRouter';
+import { doc, getDoc } from 'firebase/firestore';
 import Intro from '../components/home/intro/Intro';
 import Carousel from '../components/home/carousel/carousel';
 import AddRestaurant from '../components/AddRestaurant';
@@ -20,60 +13,61 @@ import Perfil from '../components/perfil/Perfil';
 import Restaurantes from '../components/restaurantes/Restaurantes';
 import AddPlato from '../components/addPlato/AddPlato';
 import Plato from '../components/plato/Plato';
-import { doc, getDoc } from 'firebase/firestore';
+import SignIn from '../components/SignIn';
+import CodeVerificaction from '../components/CodeVerificaction';
+import CreateAccount from '../components/CreateAccount';
+import Home from '../components/home/Home';
+import PublicRouter from './PublicRouter';
+import PrivateRouter from './PrivateRouter';
+import { auth, dataBase } from '../Firebase/firebaseConfig';
+import { actionSignPhoneSync } from '../redux/actions/userActions';
+
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(undefined);
-  const [check, setCheck] = useState(true);
+  const [loading, setLoading] = useState(true);
   const userStore = useSelector((store) => store.userStore);
   const dispatch = useDispatch();
-  // user?.uid
 
-  const traerInfo = async (uid, accessToken) => {
-    const docRef = doc(dataBase, `usuarios/${uid}`);
-    const docu = await getDoc(docRef);
-    const dataFinal = docu.data();
-    console.log(uid);
-    console.log(dataFinal);
-    dispatch(
-      actionSignPhoneSync({
-        name: dataFinal.name,
-        email: dataFinal.email,
-        accessToken,
-        phoneNumber: dataFinal.phoneNumber,
-        avatar: dataFinal.avatar,
-        uid,
-        admin: dataFinal.admin,
-        error: false,
-        address: dataFinal.address,
-      })
-    );
+  useEffect(() => {const handleAuthChange = async (user) => {
+    if (user?.uid) {
+      setIsLoggedIn(true);
+      setLoading(true);
+      if (Object.entries(userStore).length === 0) {
+        const { displayName, email, phoneNumber } = user;
+        const accessToken = await user.getIdToken(); // Obtener el token de acceso
+        await fetchUserInfo(user.uid, accessToken);
+        console.log(displayName, email, phoneNumber);
+      }
+    } else {
+      setIsLoggedIn(false);
+    }
+    setLoading(false);
   };
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user?.uid) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-      setCheck(false);
-      if (user?.auth.currentUser) {
-        if (Object.entries(userStore).length === 0) {
-          const {
-            displayName,
-            email,
-            phoneNumber,
-            accessToken,
-            photoURL,
-            uid,
-          } = user.auth.currentUser;
+    const fetchUserInfo = async (uid, accessToken) => {
+      const docRef = doc(dataBase, `usuarios/${uid}`);
+      const docu = await getDoc(docRef);
+      const dataFinal = docu.data();
+      dispatch(
+        actionSignPhoneSync({
+          name: dataFinal.name,
+          email: dataFinal.email,
+          accessToken,
+          phoneNumber: dataFinal.phoneNumber,
+          avatar: dataFinal.avatar,
+          uid,
+          admin: dataFinal.admin,
+          error: false,
+          address: dataFinal.address,
+        })
+      );
+    };
 
-          traerInfo(uid, accessToken);
-          console.log(displayName, email, phoneNumber, photoURL);
-        }
-      }
-    });
-  }, [setIsLoggedIn, check]);
-  if (check) {
+    const unsubscribe = onAuthStateChanged(auth, handleAuthChange);
+
+    return () => unsubscribe();
+  }, [dispatch, userStore]);
+
+  if (loading) {
     return (
       <Spinner animation="border" role="status">
         <span className="visually-hidden">Loading...</span>

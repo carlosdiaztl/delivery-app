@@ -7,6 +7,7 @@ import { actionGetPlatosAsync } from '../../redux/actions/platosActions';
 import { actionGetrestaurantesAsync } from '../../redux/actions/restaurantesActions';
 import Footer from '../home/footer/Footer';
 import './style.scss';
+import NavBar from '../navbar/NavBar';
 
 const Restaurantes = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,8 @@ const Restaurantes = () => {
 
   return (
     <div className="container">
+      <NavBar/>
+
       <h2>Bienvenido a {name}</h2>
       {restaurante && (
         <div className="row">

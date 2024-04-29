@@ -6,5 +6,5 @@ const PublicRouter = ({ isAuthentication }) => {
   return <div>{isAuthentication ? <Navigate to="/home" /> : <Outlet />}</div>;
 };
 
-PublicRouter.propTypes = { isAuthentication: propTypes.boolean };
+PublicRouter.propTypes = { isAuthentication: propTypes.bool };
 export default PublicRouter;
