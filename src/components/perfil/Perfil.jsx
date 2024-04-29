@@ -37,7 +37,9 @@ const Perfil = () => {
       }
     });
   }, []);
-
+  useEffect(() => {
+    sendInfoUser()
+  }, []);
   const sendInfoUser = async () => {
     const users = [];
     const userCollection = collection(dataBase, 'usuarios');
@@ -111,11 +113,10 @@ const Perfil = () => {
     <div className={userStore.admin ? 'perfil_admin' : 'perfil'}>
       {userStore && userStore.admin ? (
         <div>
-          <span>
-            Viendo los datos{' '}
-            <button onClick={sendInfoUser}>Ver usuarios</button>
-          </span>
-          {usuarios.length && (
+          <h3>
+           Usuarios
+          </h3>
+          {usuarios && usuarios.length && (
             <div className='table-responsive'>
 
             <Table striped bordered hover>
