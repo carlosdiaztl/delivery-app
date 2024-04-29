@@ -86,9 +86,8 @@ const AddPlato = () => {
   useEffect(() => {
     dispatch(actionGetrestaurantesAsync());
   }, [dispatch]);
-  console.log(restaurantes);
+
   const restaurantesProperty = restaurantes.map((item, index) => item.name);
-  console.log(restaurantesProperty);
   const {
     register,
     handleSubmit,

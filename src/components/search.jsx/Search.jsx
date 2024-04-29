@@ -14,7 +14,6 @@ const Search = () => {
   const [busqueda, setBusqueda] = useState(false);
   const [msj, setMsj] = useState(false);
   const { platos } = useSelector((store) => store.platosStore);
-  console.log(platos);
   const dispatch = useDispatch();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {

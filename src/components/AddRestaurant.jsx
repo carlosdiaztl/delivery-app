@@ -118,7 +118,6 @@ const AddRestaurant = () => {
       closeTime: data.close,
       image: image,
     };
-    console.log(newRestaurant);
     dispatch(actionAddRestaurantesAsync(newRestaurant));
   };
   const goHome = () => {

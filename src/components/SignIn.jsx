@@ -27,7 +27,6 @@ const SignIn = () => {
       phoneNumber,
       10
     );
-    console.log(isValid, validNumber);
     if (!isValid) {
       alert('el numero debe tener 10 caracteres');
     }
@@ -36,7 +35,6 @@ const SignIn = () => {
     signInWithPhoneNumber(auth, `+57${validNumber}`, recapcthaValue)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
-        console.log(confirmationResult);
         navigate('/verification');
       })
       .catch((error) => {

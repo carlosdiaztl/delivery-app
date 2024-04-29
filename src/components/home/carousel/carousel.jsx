@@ -18,7 +18,6 @@ const initial = 0
 const [index, setIndex] = useState(initial)
 const nextImg =()=>{
   setIndex(index+1)
-  console.log(index);
 }
 const [render, setRender] = useState(carousel1)
 // useEffect(() => {

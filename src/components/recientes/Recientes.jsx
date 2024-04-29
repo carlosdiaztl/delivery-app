@@ -62,14 +62,12 @@ const Recientes = () => {
     });
     // userCompras.length
     setCompras(comprasTotales);
-    console.log(comprasTotales);
     const comprasFiltradas = comprasTotales.filter((compra) => {
       // Filtrar las compras según alguna condición
       // Por ejemplo, si solo quieres las compras de un usuario específico:
       return compra.userId === userStore.uid;
     });
     setUserCompras(comprasFiltradas);
-    console.log(comprasFiltradas);
   };
   
   
@@ -78,8 +76,6 @@ const Recientes = () => {
   
   
   const confirmBuy = () => {
-    console.log(comprasStore);
-    console.log(userStore);
     const userId = userStore.uid; // Obtener el ID del usuario desde el store
 
     // Modificar cada compra para agregar el ID del usuario

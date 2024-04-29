@@ -22,11 +22,9 @@ const CreateAccount = () => {
   const [usuario, setUsuario] = useState('');
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log(user);
       setUsuario(user);
     });
   }, []);
-  console.log(usuario);
 
   useEffect(() => {
     setTimeout(() => {
