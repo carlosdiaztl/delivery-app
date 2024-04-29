@@ -81,8 +81,8 @@ const Recientes = () => {
       });
   
       setUserCompras(comprasTotalesUser);
-      console.log(userCompras);
       console.log(comprasTotalesUser);
+      console.log(userCompras);
     } catch (error) {
       console.error('Error al ejecutar la consulta:', error);
     }
@@ -212,7 +212,7 @@ const Recientes = () => {
               </tr>
             </thead>
             <tbody>
-              {compras.map((item, index) => (
+              {userCompras.map((item, index) => (
                 <tr className="comprasU" key={index}>
                   <td>{item.restaurante}</td>
                   <TimestampTable timestamp={item.timestamp} />
