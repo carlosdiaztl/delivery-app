@@ -38,6 +38,7 @@ const Recientes = () => {
   useEffect(() => {
    
     verCompras();
+    verUserCompras();
   }, []);
   const deleteItem = (index) => {
     const compra = [...comprasStore];
@@ -62,20 +63,34 @@ const Recientes = () => {
     });
     // userCompras.length
     setCompras(comprasTotales);
-    const comprasFiltradas = comprasTotales.filter((compra) => {
-      // Filtrar las compras según alguna condición
-      // Por ejemplo, si solo quieres las compras de un usuario específico:
-      return compra.userId === userStore.uid;
-    });
-    setUserCompras(comprasFiltradas);
+    console.log(comprasTotales);
+  };
+  const verUserCompras = async () => {
+    const comprasTotalesUser = [];
+    const userCollection = collection(dataBase, 'compras');
+    const q = query(userCollection, where('userId', '==', userStore.uid));
+    try {
+      // Ejecutar la consulta filtrando por el campo 'userid' igual a 'userStore.uid'
+      const querySnapshot = await getDocs(q);
+  
+      querySnapshot.forEach((doc) => {
+        comprasTotalesUser.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+  
+      setUserCompras(comprasTotalesUser);
+      console.log(userCompras);
+      console.log(comprasTotalesUser);
+    } catch (error) {
+      console.error('Error al ejecutar la consulta:', error);
+    }
   };
   
-  
-      
-      
-  
-  
   const confirmBuy = () => {
+    console.log(comprasStore);
+    console.log(userStore);
     const userId = userStore.uid; // Obtener el ID del usuario desde el store
 
     // Modificar cada compra para agregar el ID del usuario
