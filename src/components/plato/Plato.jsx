@@ -84,9 +84,9 @@ const Plato = () => {
                 </Card.Body>
                 <Card.Footer>
                   <div className="my-4 col-md-12 row">
-                    <aside className="compraButtons col-md-6 d-flex justify-content-center gap-2">
+                  <aside className="compraButtons col-md-6 d-flex justify-content-center gap-2 align-items-center" >
                       <Button variant="outline-secondary" onClick={() => changeQuantity('decrease')}>-</Button>
-                      <span className='text-center mt-1'>{quantity}</span>
+                      <span className='text-center'>{quantity}</span>
                       <Button variant="outline-secondary" onClick={() => changeQuantity('increase')}>+</Button>
                     </aside>
                     <Button className='mt-4 col-md-6' variant="primary" onClick={agregarCompra}>
